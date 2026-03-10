@@ -1,26 +1,26 @@
-\# \[NECROPUNK] - GDD
+# \[NECROPUNK] - GDD
 
 &nbsp;
 
-\## 1. Visão Geral
+## 1. Visão Geral
 
-\*   \*\*Gênero:\*\* Tower Defense 3D
+*   \*\*Gênero:\*\* Tower Defense 3D
 
-\*   \*\*Plataformas:\*\* Mobile
+*   \*\*Plataformas:\*\* Mobile
 
-\*   \*\*Público-alvo:\*\* Casual, idades 16-30
+*   \*\*Público-alvo:\*\* Casual, idades 16-30
 
-\*   \*\*Elevator Pitch:\*\* Um jogo de tower defense onde um necromante cyberpunk luta contra robôs para defender sua base.
+*   \*\*Elevator Pitch:\*\* Um jogo de tower defense onde um necromante cyberpunk luta contra robôs para defender sua base.
 
 &nbsp;
 
-\## 2. Mecânicas Principais (Core Loop)
+## 2. Mecânicas Principais (Core Loop)
 
-1\.  \*\*Posicionar torres:\*\* pode posicionar torres livremente pelo mapa durante a partida.
+1.  **Posicionar torres:\*\* pode posicionar torres livremente pelo mapa durante a partida.
 
-2\.  \*\*Aprimorar Torres:\*\* após matar um determinado número de inimigos, desbloqueia a possibilidade de upar a torre, por um custo de ouro.
+2\.  **Aprimorar Torres:\*\* após matar um determinado número de inimigos, desbloqueia a possibilidade de upar a torre, por um custo de ouro.
 
-3\.  \*\*Ressuscitar:\*\* pode reviver certos inimigos para ajudar no controle das hordas.
+3.  **Ressuscitar:** pode reviver certos inimigos para ajudar no controle das hordas.
 
 4\.  \*\*Economia:\*\* gerenciar o ouro obtido ao abater os inimigos, para poder colocar mais torres ou comprar os niveis de aprimoramento das torres que já estão colocadas no mapa.
 
