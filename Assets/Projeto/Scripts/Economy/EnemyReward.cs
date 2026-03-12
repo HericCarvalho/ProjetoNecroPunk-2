@@ -7,7 +7,7 @@ public class EnemyReward : MonoBehaviour
 
     public void GiveReward()
     {
-        PlayerEconomy.instance.AddMoney(moneyReward);
-        PlayerEconomy.instance.AddRestos(restosReward);
+        PlayerResources.instance.AddMoney(moneyReward);
+        PlayerResources.instance.AddRestos(restosReward);
     }
 }

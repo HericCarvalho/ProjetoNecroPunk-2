@@ -27,7 +27,6 @@ public class EnemyMovement : MonoBehaviour
             GetNextWaypoint();
         }
     }
-
     void GetNextWaypoint()
     {
         if (waypointIndex >= Waypoints.points.Length - 1)
@@ -39,9 +38,12 @@ public class EnemyMovement : MonoBehaviour
         waypointIndex++;
         target = Waypoints.points[waypointIndex];
     }
-
     void ReachEnd()
     {
         Destroy(gameObject);
+    }
+    public float GetProgress()
+    {
+        return waypointIndex;
     }
 }

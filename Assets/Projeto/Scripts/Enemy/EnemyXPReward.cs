@@ -6,7 +6,7 @@ public class EnemyXPReward : MonoBehaviour
 
     public void GiveXP(GameObject tower)
     {
-        TowerXP towerXP = tower.GetComponent<TowerXP>();
+        Tower towerXP = tower.GetComponent<Tower>();
 
         if (towerXP != null)
         {

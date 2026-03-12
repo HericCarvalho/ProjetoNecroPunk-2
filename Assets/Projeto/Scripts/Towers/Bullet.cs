@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Transform target;
+    Transform target;
 
     public float speed = 20f;
     public float damage = 50f;
@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
     {
         if (target == null)
         {
-            Destroy(gameObject);
+            ObjectPool.instance.ReturnObject(gameObject);
             return;
         }
 
@@ -44,17 +44,14 @@ public class Bullet : MonoBehaviour
         {
             enemy.TakeDamage(damage);
 
-            if (enemy.health <= 0)
-            {
-                EnemyXPReward xp = target.GetComponent<EnemyXPReward>();
+            Tower tower = ownerTower.GetComponent<Tower>();
 
-                if (xp != null)
-                {
-                    xp.GiveXP(ownerTower);
-                }
+            if (tower != null)
+            {
+                tower.GainXP(1);
             }
         }
 
-        Destroy(gameObject);
+        ObjectPool.instance.ReturnObject(gameObject);
     }
 }

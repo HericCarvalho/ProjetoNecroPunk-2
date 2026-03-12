@@ -1,20 +1,37 @@
 using UnityEngine;
 
+public enum TargetMode
+{
+    First,
+    Last,
+    Closest,
+    Strongest
+}
+
 public class Tower : MonoBehaviour
 {
-    public float range = 10f;
-
-    public Transform target;
+    public TowerStats stats;
 
     public string enemyTag = "Enemy";
 
     public Transform firePoint;
+    public Transform target;
 
-    public GameObject bulletPrefab;
+    public TargetMode targetMode = TargetMode.First;
 
-    public float fireRate = 1f;
+    float fireCountdown = 0f;
 
-    private float fireCountdown = 0f;
+    [Header("XP")]
+    public int level = 1;
+    public int currentXP = 0;
+    public int xpToNextLevel;
+
+    void Start()
+    {
+        stats = GetComponent<TowerStats>();
+
+        xpToNextLevel = stats.data.baseXPToLevel;
+    }
 
     void Update()
     {
@@ -26,7 +43,7 @@ public class Tower : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if (distance > range)
+        if (distance > stats.range)
         {
             target = null;
             return;
@@ -35,7 +52,7 @@ public class Tower : MonoBehaviour
         if (fireCountdown <= 0f)
         {
             Shoot();
-            fireCountdown = 1f / fireRate;
+            fireCountdown = 1f / stats.fireRate;
         }
 
         fireCountdown -= Time.deltaTime;
@@ -43,37 +60,100 @@ public class Tower : MonoBehaviour
 
     void FindTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        Transform bestTarget = null;
+        float bestValue = 0f;
 
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-
-        foreach (GameObject enemy in enemies)
+        foreach (Transform enemy in EnemyManager.instance.enemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            float distance = Vector3.Distance(transform.position, enemy.position);
 
-            if (distance < shortestDistance)
+            if (distance > stats.range)
+                continue;
+
+            EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
+            EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+
+            float value = 0f;
+
+            switch (targetMode)
             {
-                shortestDistance = distance;
-                nearestEnemy = enemy;
+                case TargetMode.First:
+                    value = movement.GetProgress();
+                    if (value > bestValue)
+                    {
+                        bestValue = value;
+                        bestTarget = enemy;
+                    }
+                    break;
+
+                case TargetMode.Last:
+                    value = movement.GetProgress();
+                    if (bestTarget == null || value < bestValue)
+                    {
+                        bestValue = value;
+                        bestTarget = enemy;
+                    }
+                    break;
+
+                case TargetMode.Closest:
+                    value = distance;
+                    if (bestTarget == null || value < bestValue)
+                    {
+                        bestValue = value;
+                        bestTarget = enemy;
+                    }
+                    break;
+
+                case TargetMode.Strongest:
+                    value = health.health;
+                    if (value > bestValue)
+                    {
+                        bestValue = value;
+                        bestTarget = enemy;
+                    }
+                    break;
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
-        {
-            target = nearestEnemy.transform;
-        }
+        target = bestTarget;
     }
 
     void Shoot()
     {
-        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bulletGO = ObjectPool.instance.GetObject();
+
+        bulletGO.transform.position = firePoint.position;
+        bulletGO.transform.rotation = firePoint.rotation;
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
-        if (bullet != null)
+        bullet.damage = stats.damage;
+
+        bullet.Seek(target, gameObject);
+    }
+
+    public void GainXP(int amount)
+    {
+        currentXP += amount;
+
+        while (currentXP >= xpToNextLevel)
         {
-            bullet.Seek(target, gameObject);
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        currentXP -= xpToNextLevel;
+        level++;
+
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
+
+        Debug.Log("Tower Level Up: " + level);
+
+        if (level % 5 == 0)
+        {
+            Debug.Log("Evolution Available!");
         }
     }
 }

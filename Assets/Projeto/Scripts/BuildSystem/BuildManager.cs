@@ -4,15 +4,33 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
 
-    public GameObject towerPrefab;
+    public TowerData selectedTower;
 
     void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
     }
 
-    public GameObject GetTowerToBuild()
+    public void SelectTower(TowerData tower)
     {
-        return towerPrefab;
+        selectedTower = tower;
+
+        TowerPreview.instance.CreatePreview(tower.prefab);
+    }
+
+    public bool CanBuild()
+    {
+        return selectedTower != null;
+    }
+
+    public void CancelBuild()
+    {
+        selectedTower = null;
     }
 }

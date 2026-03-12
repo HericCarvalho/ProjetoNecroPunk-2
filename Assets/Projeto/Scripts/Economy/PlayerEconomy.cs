@@ -1,22 +1,31 @@
 using UnityEngine;
 
-public class PlayerEconomy : MonoBehaviour
+public class PlayerResources : MonoBehaviour
 {
-    public static PlayerEconomy instance;
+    public static PlayerResources instance;
 
-    [Header("Resources")]
     public int money = 100;
     public int restos = 0;
 
     void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogError("More than one PlayerEconomy!");
-            return;
-        }
-
         instance = this;
+    }
+
+    public bool CanAfford(int costMoney, int costRestos)
+    {
+        return money >= costMoney && restos >= costRestos;
+    }
+
+    public bool Spend(int costMoney, int costRestos)
+    {
+        if (!CanAfford(costMoney, costRestos))
+            return false;
+
+        money -= costMoney;
+        restos -= costRestos;
+
+        return true;
     }
 
     public void AddMoney(int amount)
@@ -24,26 +33,8 @@ public class PlayerEconomy : MonoBehaviour
         money += amount;
     }
 
-    public bool SpendMoney(int amount)
-    {
-        if (money < amount)
-            return false;
-
-        money -= amount;
-        return true;
-    }
-
     public void AddRestos(int amount)
     {
         restos += amount;
-    }
-
-    public bool SpendRestos(int amount)
-    {
-        if (restos < amount)
-            return false;
-
-        restos -= amount;
-        return true;
     }
 }

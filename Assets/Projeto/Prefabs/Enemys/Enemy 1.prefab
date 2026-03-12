@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 283838460089528564}
   - component: {fileID: 4530984545550541514}
   - component: {fileID: -3357186789315914303}
+  - component: {fileID: -3570986436703467219}
+  - component: {fileID: -92318919479706948}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -183,3 +185,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
   moneyReward: 10
   restosReward: 2
+--- !u!114 &-3570986436703467219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6513603302089294902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd78b4bf455d0d4a9cc3e15eaddc304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRegistration
+--- !u!114 &-92318919479706948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6513603302089294902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc10413a636d1043ac7d766c6eb7dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyXPReward
+  xpReward: 5

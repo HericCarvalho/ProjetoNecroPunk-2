@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MobileCameraController : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 0.1f;
+    public float moveSpeed = 0.01f;
 
     [Header("Zoom")]
-    public float zoomSpeed = 0.01f;
+    public float zoomSpeed = 0.1f;
     public float minZoom = 10f;
     public float maxZoom = 40f;
 
@@ -16,64 +17,110 @@ public class MobileCameraController : MonoBehaviour
     public float minZ;
     public float maxZ;
 
-    private Camera cam;
+    [Header("Drag Settings")]
+    public float dragThreshold = 10f;
 
-    private Vector2 lastTouchPosition;
+    private Vector2 startPointerPosition;
+    private Vector2 lastPointerPosition;
 
-    void Start()
-    {
-        cam = GetComponent<Camera>();
-    }
+    private bool isDragging = false;
 
     void Update()
     {
-        if (Application.isEditor)
-        {
-            HandleMouseMovement();
-            HandleMouseZoom();
-        }
-        else
-        {
-            HandleTouchMovement();
-            HandlePinchZoom();
-        }
+        if (BuildMenuUI.instance != null && BuildMenuUI.instance.IsMenuOpen)
+            return;
 
+        HandlePointerMovement();
+        HandleZoom();
         ClampPosition();
     }
 
-    void HandleTouchMovement()
+    void HandlePointerMovement()
     {
-        if (Input.touchCount == 1)
+        if (Pointer.current == null)
+            return;
+
+        if (Pointer.current.press.wasPressedThisFrame)
         {
-            Touch touch = Input.GetTouch(0);
+            startPointerPosition = Pointer.current.position.ReadValue();
+            lastPointerPosition = startPointerPosition;
+            isDragging = false;
+        }
 
-            if (touch.phase == TouchPhase.Moved)
+        if (Pointer.current.press.isPressed)
+        {
+            Vector2 currentPosition = Pointer.current.position.ReadValue();
+
+            float distance = Vector2.Distance(startPointerPosition, currentPosition);
+
+            if (!isDragging && distance > dragThreshold)
             {
-                Vector2 delta = touch.deltaPosition;
-
-                Vector3 move = new Vector3(-delta.x * moveSpeed, 0, -delta.y * moveSpeed);
-
-                transform.Translate(move, Space.World);
+                isDragging = true;
             }
+
+            if (isDragging)
+            {
+                Vector2 delta = currentPosition - lastPointerPosition;
+
+                MoveCamera(delta);
+
+                lastPointerPosition = currentPosition;
+            }
+        }
+
+        if (Pointer.current.press.wasReleasedThisFrame)
+        {
+            isDragging = false;
         }
     }
 
-    void HandlePinchZoom()
+    void MoveCamera(Vector2 delta)
     {
-        if (Input.touchCount == 2)
+        Vector3 right = transform.right;
+        Vector3 forward = transform.forward;
+
+        forward.y = 0;
+        forward.Normalize();
+
+        Vector3 move =
+            (-right * delta.x + -forward * delta.y) * moveSpeed;
+
+        transform.position += move;
+    }
+
+    void HandleZoom()
+    {
+        if (Mouse.current != null)
         {
-            Touch finger1 = Input.GetTouch(0);
-            Touch finger2 = Input.GetTouch(1);
+            float scroll = Mouse.current.scroll.ReadValue().y;
 
-            Vector2 prevPos1 = finger1.position - finger1.deltaPosition;
-            Vector2 prevPos2 = finger2.position - finger2.deltaPosition;
+            if (scroll != 0)
+            {
+                Zoom(scroll * zoomSpeed);
+            }
+        }
 
-            float prevDistance = (prevPos1 - prevPos2).magnitude;
-            float currentDistance = (finger1.position - finger2.position).magnitude;
+        if (Touchscreen.current != null && Touchscreen.current.touches.Count >= 2)
+        {
+            var touch0 = Touchscreen.current.touches[0];
+            var touch1 = Touchscreen.current.touches[1];
 
-            float difference = currentDistance - prevDistance;
+            if (touch0.press.isPressed && touch1.press.isPressed)
+            {
+                Vector2 pos0 = touch0.position.ReadValue();
+                Vector2 pos1 = touch1.position.ReadValue();
 
-            Zoom(difference * zoomSpeed);
+                float currentDistance = Vector2.Distance(pos0, pos1);
+
+                Vector2 prev0 = pos0 - touch0.delta.ReadValue();
+                Vector2 prev1 = pos1 - touch1.delta.ReadValue();
+
+                float prevDistance = Vector2.Distance(prev0, prev1);
+
+                float difference = currentDistance - prevDistance;
+
+                Zoom(difference * zoomSpeed);
+            }
         }
     }
 
@@ -81,7 +128,7 @@ public class MobileCameraController : MonoBehaviour
     {
         Vector3 pos = transform.position;
 
-        pos.y -= increment * 10f;
+        pos.y -= increment;
 
         pos.y = Mathf.Clamp(pos.y, minZoom, maxZoom);
 
@@ -96,25 +143,5 @@ public class MobileCameraController : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
 
         transform.position = pos;
-    }
-
-    void HandleMouseMovement()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            float moveX = -Input.GetAxis("Mouse X") * moveSpeed * 100f;
-            float moveZ = -Input.GetAxis("Mouse Y") * moveSpeed * 100f;
-
-            transform.Translate(new Vector3(moveX, 0, moveZ), Space.World);
-        }
-    }
-    void HandleMouseZoom()
-    {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-
-        if (scroll != 0f)
-        {
-            Zoom(scroll * 100f);
-        }
     }
 }

@@ -1,38 +1,44 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        HandleInput();
+    }
+
+    void HandleInput()
+    {
+        // TOUCH (mobile)
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
         {
-            HandleClick(Input.mousePosition);
+            Vector2 pos = Touchscreen.current.primaryTouch.position.ReadValue();
+            HandleClick(pos);
         }
 
-        if (Input.touchCount > 0)
+        // MOUSE (PC testing)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                HandleClick(touch.position);
-            }
+            Vector2 pos = Mouse.current.position.ReadValue();
+            HandleClick(pos);
         }
     }
 
-    void HandleClick(Vector3 screenPosition)
+    void HandleClick(Vector2 screenPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            BuildNode node = hit.collider.GetComponent<BuildNode>();
+            Debug.Log("Hit: " + hit.collider.name);
 
-            if (node != null)
-            {
-                node.BuildTower();
-            }
+            BuildNode node = hit.collider.GetComponentInParent<BuildNode>();
+
+            if (node == null)
+                return;
+
+            BuildMenuUI.instance.OpenMenu(node);
         }
     }
 }
