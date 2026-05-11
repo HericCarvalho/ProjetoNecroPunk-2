@@ -41,6 +41,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7622748325625969133}
     m_Modifications:
+    - target: {fileID: 1130721543593560985, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130721543593560985, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1491216154149595724, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
       propertyPath: m_Name
       value: prefab arvore com cabecas (1)
@@ -103,6 +111,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7622748325625969133}
     m_Modifications:
+    - target: {fileID: 1130721543593560985, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130721543593560985, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1491216154149595724, guid: fabad3edcaec0de498d55b5794dd93a5, type: 3}
       propertyPath: m_Name
       value: prefab arvore com cabecas
