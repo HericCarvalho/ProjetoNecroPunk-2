@@ -22,7 +22,7 @@ public class TutorialPagesUI : MonoBehaviour
     {
         nextButton.onClick.AddListener(Next);
         backButton.onClick.AddListener(Back);
-        exitButton.onClick.AddListener(Close);
+        //exitButton.onClick.AddListener(Close);
 
         UpdateUI();
     }
@@ -36,10 +36,10 @@ public class TutorialPagesUI : MonoBehaviour
         panelGroup.blocksRaycasts = true;
     }
 
-    public void Close()
-    {
-        StartCoroutine(CloseRoutine());
-    }
+    //public void Close()
+    //{
+    //    StartCoroutine(CloseRoutine());
+    //}
 
     IEnumerator CloseRoutine()
     {
