@@ -48,7 +48,7 @@ namespace AudioSystem {
             current = gameObject.GetOrAdd<AudioSource>();
             current.clip = clip;
             current.outputAudioMixerGroup = musicMixerGroup; // Set mixer group
-            current.loop = false; // For playlist functionality, we want tracks to play once
+            current.loop = true; // For playlist functionality, we want tracks to play once
             current.volume = 0;
             current.bypassListenerEffects = true;
             current.Play();
