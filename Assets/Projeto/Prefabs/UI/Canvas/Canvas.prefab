@@ -7022,7 +7022,6 @@ GameObject:
   - component: {fileID: 2629684850177325717}
   - component: {fileID: 4019359770348424491}
   - component: {fileID: 4075855917182387145}
-  - component: {fileID: 2993399769998460276}
   - component: {fileID: 1377648204057927903}
   m_Layer: 5
   m_Name: X
@@ -7218,18 +7217,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2993399769998460276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4501693295578912071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794cce730b698cf42921463429c89bc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundBeforeClick
 --- !u!82 &1377648204057927903
 AudioSource:
   m_ObjectHideFlags: 0
