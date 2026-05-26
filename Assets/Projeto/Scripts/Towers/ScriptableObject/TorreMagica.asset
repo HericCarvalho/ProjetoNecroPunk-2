@@ -21,7 +21,7 @@ MonoBehaviour:
   baseXPToLevel: 20
   baseUpgradeCost: 5
   costMultiplier: 1.5
-  costMoney: 70
+  costMoney: 80
   costRestos: 0
   upgradeCostMoney: 0
   upgradeCostRestos: 30
