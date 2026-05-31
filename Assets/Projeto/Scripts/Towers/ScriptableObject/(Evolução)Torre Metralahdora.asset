@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fcd5a253ffe27342b16d391f76452a5, type: 3}
-  m_Name: TorreTerremoto
+  m_Name: "(Evolu\xE7\xE3o)Torre Metralahdora"
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerName: Torre Terremoto
-  prefab: {fileID: 8919679645820292701, guid: c164af1a3a317504baabc7d3e8357bcf, type: 3}
+  towerName: Torre Metralhadora
+  prefab: {fileID: 4286512049902520264, guid: 754d67f862e34de469e1706d1a59f2f8, type: 3}
   baseRange: 10
-  baseFireRate: 0.4
-  rangePerLevel: 0.03
-  fireRatePerLevel: 0.025
-  baseXPToLevel: 40
-  baseUpgradeCost: 10
-  costMultiplier: 3
-  costMoney: 150
+  baseFireRate: 1
+  rangePerLevel: 0.5
+  fireRatePerLevel: 0.1
+  baseXPToLevel: 10
+  baseUpgradeCost: 5
+  costMultiplier: 1.5
+  costMoney: 50
   costRestos: 0
   upgradeCostMoney: 0
   upgradeCostRestos: 0
   sellValue: 0
-  nextUpgrade: {fileID: 11400000, guid: db676ee905a5e8d40bfbae3b1d33828b, type: 2}
+  nextUpgrade: {fileID: 0}
   transmuteOptionA: {fileID: 0}
   transmuteOptionB: {fileID: 0}
-  icon: {fileID: 21300000, guid: 2cd28c2fdcdd26644bec46c929eedad0, type: 3}
+  icon: {fileID: 0}

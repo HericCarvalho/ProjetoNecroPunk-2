@@ -48,7 +48,13 @@ public class InputManager : MonoBehaviour
 
         if (tower != null)
         {
-            TowerUIManager.instance.SelectTower(tower);
+            TowerUIManager ui = FindFirstObjectByType<TowerUIManager>();
+
+            if (ui != null)
+            {
+                ui.SelectTower(tower);
+            }
+
             return;
         }
 

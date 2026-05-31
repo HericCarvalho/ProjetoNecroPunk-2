@@ -30,7 +30,7 @@ public class EarthquakeAttack : MonoBehaviour
 
     [SerializeField] SoundData soundData;
 
-    public void Execute(Vector3 position, float damageMultiplier, float range, Tower owner)
+    public void Execute(Vector3 position,float finalDamage,float range,Tower owner)
     {
         if (soundData != null)
         {
@@ -54,10 +54,10 @@ public class EarthquakeAttack : MonoBehaviour
             EnemyHealth enemy = enemyTransform.GetComponent<EnemyHealth>();
             if (enemy == null) continue;
 
-            float finalDamage = damage * damageMultiplier;
+            float damageToDeal = finalDamage;
 
-            enemy.TakeDamage(finalDamage, isMagicDamage, isTrueDamage);
-            LevelStatsManager.instance.RegisterDamage(owner, finalDamage);
+            enemy.TakeDamage(damageToDeal,isMagicDamage,isTrueDamage);
+            LevelStatsManager.instance.RegisterDamage(owner,damageToDeal);
 
             if (owner != null)
                 owner.GainXP(1);
