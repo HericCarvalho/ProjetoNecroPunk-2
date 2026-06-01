@@ -29,11 +29,32 @@ public class Tower : MonoBehaviour
     public int xpToNextLevel;
     public int upgradePoints = 0;
 
+    [Header("Upgrade Costs")]
+
+    public int damageBaseCost = 5;
+    public int rangeBaseCost = 5;
+    public int fireRateBaseCost = 5;
+
+    public float costMultiplier = 1.35f;
+
     float fireCountdown = 0f;
 
     float bonusDamage;
     float bonusRange;
     float bonusFireRate;
+
+    int damageUpgradeLevel;
+    int rangeUpgradeLevel;
+    int fireRateUpgradeLevel;
+
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+
+    [SerializeField] string attackTrigger = "Attack";
+
+    [SerializeField] Transform idleRotator;
+    [SerializeField] float idleRotationSpeed = 30f;
+    bool waitingAnimationShot = false;
 
     private float baseSize;
     private GameObject rangeIndicatorInstance;
@@ -42,6 +63,8 @@ public class Tower : MonoBehaviour
     void Start()
     {
         if (isPreview) return;
+
+        UpdateIdleAnimation();
 
         xpToNextLevel = data.baseXPToLevel;
 
@@ -92,11 +115,35 @@ public class Tower : MonoBehaviour
 
     void Shoot()
     {
-        if (attackType == AttackType.Projectile && target != null)
-            ProjectileAttack();
+        if (target == null)
+            return;
 
-        if (attackType == AttackType.Earthquake && target != null)
-            EarthquakeAttack();
+        if (animator != null)
+        {
+            waitingAnimationShot = true;
+            animator.SetTrigger(attackTrigger);
+        }
+        else
+        {
+            ExecuteAttack();
+        }
+    }
+    void ExecuteAttack()
+    {
+        switch (attackType)
+        {
+            case AttackType.Projectile:
+                ProjectileAttack();
+                break;
+
+            case AttackType.Earthquake:
+                EarthquakeAttack();
+                break;
+
+            case AttackType.Laser:
+                LaserAttack();
+                break;
+        }
     }
 
     void ProjectileAttack()
@@ -203,49 +250,133 @@ public class Tower : MonoBehaviour
 
     public float GetFinalDamage()
     {
-        float baseDamage = bulletPrefab.GetComponent<Bullet>().damage;
+        float baseDamage = GetBaseDamage();
 
-        float damageWithStars = SkillManager.instance.GetStat(
+        float damageWithSkills = SkillManager.instance.GetStat(
             StatType.Damage,
             towerType,
             baseDamage
         );
 
-        Debug.Log($"Base: {baseDamage} | After Skills: {damageWithStars} | Level Bonus: {bonusDamage}");
+        return damageWithSkills + bonusDamage;
+    }
+    float GetBaseDamage()
+    {
+        switch (attackType)
+        {
+            case AttackType.Projectile:
 
-        return damageWithStars + bonusDamage;
+                if (bulletPrefab != null)
+                {
+                    Bullet bullet = bulletPrefab.GetComponent<Bullet>();
+
+                    if (bullet != null)
+                        return bullet.damage;
+                }
+
+                break;
+
+            case AttackType.Earthquake:
+
+                if (earthquakeAttack != null)
+                    return earthquakeAttack.damage;
+
+                break;
+
+            case AttackType.Laser:
+
+                if (bulletPrefab != null)
+                {
+                    Bullet bullet = bulletPrefab.GetComponent<Bullet>();
+
+                    if (bullet != null)
+                        return bullet.damage;
+                }
+
+                break;
+        }
+
+        return 0f;
     }
     public float GetBonusDamageValue()
     {
         return bonusDamage;
     }
+    public int GetDamageUpgradeCost()
+    {
+        return Mathf.RoundToInt(
+            damageBaseCost *
+            Mathf.Pow(costMultiplier, damageUpgradeLevel)
+        );
+    }
     public void UpgradeDamage(float amount)
     {
-        if (upgradePoints <= 0) return;
+        if (upgradePoints <= 0)
+            return;
+
+        int cost = GetDamageUpgradeCost();
+
+        if (!PlayerResources.instance.CanAfford(0, cost))
+            return;
+
+        PlayerResources.instance.Spend(0, cost);
 
         bonusDamage += amount;
+
         upgradePoints--;
+        damageUpgradeLevel++;
+    }
+    public int GetRangeUpgradeCost()
+    {
+        return Mathf.RoundToInt(
+            5f * Mathf.Pow(1.5f, rangeUpgradeLevel)
+        );
     }
 
     public void UpgradeRange(float amount)
     {
-        if (upgradePoints <= 0) return;
+        if (upgradePoints <= 0)
+            return;
+
+        int cost = GetRangeUpgradeCost();
+
+        if (!PlayerResources.instance.CanAfford(0, cost))
+            return;
+
+        PlayerResources.instance.Spend(0, cost);
 
         bonusRange += amount;
+
         upgradePoints--;
+        rangeUpgradeLevel++;
+    }
+    public int GetFireRateUpgradeCost()
+    {
+        return Mathf.RoundToInt(
+            5f * Mathf.Pow(1.5f, fireRateUpgradeLevel)
+        );
     }
 
     public void UpgradeFireRate(float amount)
     {
-        if (upgradePoints <= 0) return;
+        if (upgradePoints <= 0)
+            return;
+
+        int cost = GetFireRateUpgradeCost();
+
+        if (!PlayerResources.instance.CanAfford(0, cost))
+            return;
+
+        PlayerResources.instance.Spend(0, cost);
 
         bonusFireRate += amount;
-        upgradePoints--;
-    }
 
+        upgradePoints--;
+        fireRateUpgradeLevel++;
+    }
     public void TryEvolve()
     {
-        if (level < 5) return;
+        if (level < 2) return;
         if (data.nextUpgrade == null) return;
 
         int cost = 20;
@@ -342,5 +473,37 @@ public class Tower : MonoBehaviour
     {
         Bullet b = bulletPrefab.GetComponent<Bullet>();
         return b != null ? b.speed : 20f;
+    }
+
+    public void AnimationShoot()
+    {
+        if (!waitingAnimationShot)
+            return;
+
+        waitingAnimationShot = false;
+
+        if (target == null)
+            return;
+
+        ExecuteAttack();
+    }
+    void UpdateIdleAnimation()
+    {
+        if (idleRotator == null)
+            return;
+
+        idleRotator.Rotate(
+            0f,
+            idleRotationSpeed * Time.deltaTime,
+            0f,
+            Space.Self
+        );
+    }
+    void PlayAttackAnimation()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger(attackTrigger);
     }
 }

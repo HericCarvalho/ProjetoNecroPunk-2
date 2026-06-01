@@ -65,9 +65,18 @@ public class TowerDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             foreach (Material m in r.materials)
             {
-                Color c = m.color;
-                c.a = 0.7f;
-                m.color = c;
+                if (m.HasProperty("_Color"))
+                {
+                    Color c = m.GetColor("_Color");
+                    c.a = 0.7f;
+                    m.SetColor("_Color", c);
+                }
+                else if (m.HasProperty("_BaseColor"))
+                {
+                    Color c = m.GetColor("_BaseColor");
+                    c.a = 0.7f;
+                    m.SetColor("_BaseColor", c);
+                }
             }
         }
     }

@@ -37,26 +37,23 @@ public class TowerUIManager : MonoBehaviour
     public float fireRateUpgradeAmount = 0.2f;
 
     private Tower currentTower;
-    
+
 
     void Awake()
     {
+        Debug.Log("TowerUIManager Awake");
+
         instance = this;
+
         panel.SetActive(false);
         transmutePanel.SetActive(false);
     }
 
     public void SelectTower(Tower tower)
     {
-        if (currentTower != null)
-            currentTower.HideRange();
-
         currentTower = tower;
 
         panel.SetActive(true);
-        UpdateUI();
-
-        currentTower.ShowRange();
     }
 
     void Update()
@@ -70,7 +67,7 @@ public class TowerUIManager : MonoBehaviour
         if (currentTower == null) return;
 
         levelText.text = "Lv " + currentTower.level;
-        pointsText.text = "Points: " + currentTower.upgradePoints;
+        pointsText.text = $"Pontos: {currentTower.upgradePoints}";
 
         bool canUpgrade = currentTower.upgradePoints > 0;
 
@@ -78,7 +75,7 @@ public class TowerUIManager : MonoBehaviour
         rangeButton.interactable = canUpgrade;
         fireRateButton.interactable = canUpgrade;
 
-        evolveButton.interactable = currentTower.level >= 5;
+        evolveButton.interactable = currentTower.level >= 2;
 
         if (currentTower.level >= 10)
             transmutePanel.SetActive(true);

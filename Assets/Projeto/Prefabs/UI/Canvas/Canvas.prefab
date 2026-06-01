@@ -2275,7 +2275,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: SellTower
         m_Mode: 1
@@ -4737,7 +4737,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: UpgradeDamage
         m_Mode: 1
@@ -5888,7 +5888,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: UpgradeRange
         m_Mode: 1
@@ -6158,7 +6158,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: OpenTransmute
         m_Mode: 1
@@ -6271,14 +6271,13 @@ GameObject:
   - component: {fileID: 7376773623845271817}
   - component: {fileID: 7369030369582254672}
   - component: {fileID: 1460697582689951686}
-  - component: {fileID: 1905883477103591800}
   m_Layer: 5
   m_Name: HUD_UpgradeTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7376773623845271817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6347,36 +6346,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1905883477103591800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712938086958190652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec0576212973cf4781528d3e07baf6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerUIManager
-  panel: {fileID: 3712938086958190652}
-  towerIcon: {fileID: 3452621371215708899}
-  towerNameText: {fileID: 2346325359822226528}
-  levelText: {fileID: 2802113078211379672}
-  pointsText: {fileID: 2861169556752046626}
-  damageText: {fileID: 6443516437036770021}
-  rangeText: {fileID: 9172914846288795492}
-  fireRateText: {fileID: 7800922165176772529}
-  damageButton: {fileID: 5158390443826400500}
-  rangeButton: {fileID: 3090061414587570291}
-  fireRateButton: {fileID: 3723628114266943051}
-  evolveButton: {fileID: 565475647656334047}
-  transmutePanel: {fileID: 3572425863403648029}
-  transmuteA: {fileID: 2542746151228882429}
-  transmuteB: {fileID: 6496913085576838823}
-  damageUpgradeAmount: 5
-  rangeUpgradeAmount: 0.5
-  fireRateUpgradeAmount: 0.2
 --- !u!1 &3779696097164049923
 GameObject:
   m_ObjectHideFlags: 0
@@ -11108,7 +11077,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: Evolve
         m_Mode: 1
@@ -15552,7 +15521,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905883477103591800}
+      - m_Target: {fileID: 1353289189883807783}
         m_TargetAssemblyTypeName: TowerUIManager, Assembly-CSharp
         m_MethodName: UpgradeFireRate
         m_Mode: 1
@@ -16769,6 +16738,7 @@ GameObject:
   - component: {fileID: 7446864053611966905}
   - component: {fileID: 8907469194045455429}
   - component: {fileID: 7327361382596007468}
+  - component: {fileID: 1353289189883807783}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -16897,6 +16867,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   healthBar: {fileID: 1891845271897080331}
+--- !u!114 &1353289189883807783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8848007259606613470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec0576212973cf4781528d3e07baf6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUIManager
+  panel: {fileID: 3712938086958190652}
+  towerIcon: {fileID: 3452621371215708899}
+  towerNameText: {fileID: 2346325359822226528}
+  levelText: {fileID: 2802113078211379672}
+  pointsText: {fileID: 2861169556752046626}
+  damageText: {fileID: 6443516437036770021}
+  rangeText: {fileID: 9172914846288795492}
+  fireRateText: {fileID: 7800922165176772529}
+  damageButton: {fileID: 5158390443826400500}
+  rangeButton: {fileID: 3090061414587570291}
+  fireRateButton: {fileID: 3723628114266943051}
+  evolveButton: {fileID: 565475647656334047}
+  transmutePanel: {fileID: 3572425863403648029}
+  transmuteA: {fileID: 2542746151228882429}
+  transmuteB: {fileID: 6496913085576838823}
+  damageUpgradeAmount: 5
+  rangeUpgradeAmount: 0.5
+  fireRateUpgradeAmount: 0.2
 --- !u!1 &8902852837478258105
 GameObject:
   m_ObjectHideFlags: 0

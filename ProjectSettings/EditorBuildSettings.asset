@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Projeto/Scenes/Menus/LevelSelection.unity
     guid: c954b877c14b54f438fbba8b4112809a
   - enabled: 1
-    path: Assets/Projeto/Scenes/ScenasTestes/ScenaTesteOriginal.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
     path: Assets/Projeto/Scenes/Fases/Cemetary.unity
     guid: c36271c83b73f894da04a00e1afd0a76
   - enabled: 1

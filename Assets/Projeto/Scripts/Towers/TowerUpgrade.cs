@@ -17,10 +17,14 @@ public class TowerUpgrade : MonoBehaviour
 
         TowerData next = tower.data.nextUpgrade;
 
-        if (!PlayerResources.instance.CanAfford(next.upgradeCostMoney, next.upgradeCostRestos))
+        if (!PlayerResources.instance.CanAfford(
+            next.upgradeCostMoney,
+            next.upgradeCostRestos))
             return;
 
-        PlayerResources.instance.Spend(next.upgradeCostMoney, next.upgradeCostRestos);
+        PlayerResources.instance.Spend(
+            next.upgradeCostMoney,
+            next.upgradeCostRestos);
 
         Instantiate(next.prefab, transform.position, transform.rotation);
 
