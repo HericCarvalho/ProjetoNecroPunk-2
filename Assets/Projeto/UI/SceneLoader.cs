@@ -153,7 +153,7 @@ public class SceneLoader : MonoBehaviour
         while (true)
         {
             if (Keyboard.current.anyKey.wasPressedThisFrame ||
-                Mouse.current.leftButton.wasPressedThisFrame)
+                Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
                 break;
 
             yield return null;
