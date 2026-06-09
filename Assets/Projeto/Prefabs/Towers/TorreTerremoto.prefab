@@ -993,7 +993,7 @@ MonoBehaviour:
   isMagicDamage: 0
   isTrueDamage: 0
   burnChance: 0
-  slowChance: 0.5
+  slowChance: 0.8
   stunChance: 0.1
   burnDuration: 0
   burnDPS: 0
