@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Torre Estrondo
   prefab: {fileID: 8177017279003846323, guid: 825f7367d719e8044b0164c0605c2194, type: 3}
-  baseRange: 10
+  baseRange: 16
   baseFireRate: 1
-  rangePerLevel: 0.5
+  rangePerLevel: 0.09
   fireRatePerLevel: 0.1
   baseXPToLevel: 10
   baseUpgradeCost: 5

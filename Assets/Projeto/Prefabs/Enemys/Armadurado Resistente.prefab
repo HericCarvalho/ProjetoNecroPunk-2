@@ -14966,7 +14966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6269320897ed0064aa728347ad84453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 50
+  maxHealth: 55
   damage: 7
   attackRate: 1
   attackRange: 1.5
@@ -15024,7 +15024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc10413a636d1043ac7d766c6eb7dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyXPReward
-  xpReward: 1
+  xpReward: 2
 --- !u!114 &6707345894240231689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15037,8 +15037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2ae6b24b20be447bf56d7790d77eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  moneyReward: 5
-  restosReward: 1
+  moneyReward: 8
+  restosReward: 2
 --- !u!136 &5131566769429653956
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -15,16 +15,16 @@ MonoBehaviour:
   towerName: Torre Terremoto
   prefab: {fileID: 8919679645820292701, guid: c164af1a3a317504baabc7d3e8357bcf, type: 3}
   baseRange: 10
-  baseFireRate: 0.4
+  baseFireRate: 0.7
   rangePerLevel: 0.03
   fireRatePerLevel: 0.025
-  baseXPToLevel: 40
+  baseXPToLevel: 50
   baseUpgradeCost: 10
   costMultiplier: 3
   costMoney: 150
   costRestos: 0
-  upgradeCostMoney: 0
-  upgradeCostRestos: 0
+  upgradeCostMoney: 300
+  upgradeCostRestos: 40
   sellValue: 0
   nextUpgrade: {fileID: 11400000, guid: db676ee905a5e8d40bfbae3b1d33828b, type: 2}
   transmuteOptionA: {fileID: 0}

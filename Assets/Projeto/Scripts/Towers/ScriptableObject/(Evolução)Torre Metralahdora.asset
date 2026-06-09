@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Torre Metralhadora
   prefab: {fileID: 4286512049902520264, guid: 754d67f862e34de469e1706d1a59f2f8, type: 3}
-  baseRange: 10
-  baseFireRate: 1
-  rangePerLevel: 0.5
-  fireRatePerLevel: 0.1
+  baseRange: 28
+  baseFireRate: 1.5
+  rangePerLevel: 0.1
+  fireRatePerLevel: 0.08
   baseXPToLevel: 10
   baseUpgradeCost: 5
   costMultiplier: 1.5

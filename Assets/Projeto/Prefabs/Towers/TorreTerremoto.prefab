@@ -989,7 +989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3588c5ffb7e9244aefb318b84c6c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EarthquakeAttack
-  damage: 40
+  damage: 2
   isMagicDamage: 0
   isTrueDamage: 0
   burnChance: 0

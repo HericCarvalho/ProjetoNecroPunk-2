@@ -20,12 +20,12 @@ MonoBehaviour:
   fireRatePerLevel: 0.02
   baseXPToLevel: 30
   baseUpgradeCost: 10
-  costMultiplier: 2
+  costMultiplier: 3
   costMoney: 60
   costRestos: 0
   upgradeCostMoney: 100
-  upgradeCostRestos: 20
-  sellValue: 10
+  upgradeCostRestos: 35
+  sellValue: 75
   nextUpgrade: {fileID: 11400000, guid: f6d93cbaf963cb24a87dabac61219989, type: 2}
   transmuteOptionA: {fileID: 0}
   transmuteOptionB: {fileID: 0}

@@ -2577,6 +2577,10 @@ PrefabInstance:
       propertyPath: hud
       value: 
       objectReference: {fileID: 183900289}
+    - target: {fileID: 5899877100487181638, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: restos
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11022,7 +11026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712938086958190652, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3757404815178871782, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_AnchorMax.x

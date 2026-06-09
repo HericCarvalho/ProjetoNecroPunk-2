@@ -14924,27 +14924,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6269320897ed0064aa728347ad84453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 100
-  damage: 5
+  maxHealth: 900
+  damage: 100
   attackRate: 1
   attackRange: 1.5
-  moveSpeed: 5
-  physicalResistance: 0
-  magicalResistance: 0
+  moveSpeed: 10
+  physicalResistance: 0.7
+  magicalResistance: 0.4
   isRanged: 0
   isMagical: 0
-  burnResistance: 0
-  slowResistance: 0
-  stunResistance: 0
+  burnResistance: 0.454
+  slowResistance: 0.193
+  stunResistance: 1
   immuneToBurn: 0
   immuneToSlow: 0
-  immuneToStun: 0
-  burnEffect: {fileID: 0}
-  slowEffect: {fileID: 0}
-  stunEffect: {fileID: 0}
-  enemyID: 
-  fragmentDropChance: 0.3
-  damagePopupPrefab: {fileID: 0}
+  immuneToStun: 1
+  burnEffect: {fileID: 6427706280910713973}
+  slowEffect: {fileID: 2007628535162063126}
+  stunEffect: {fileID: 1647954143271683942}
+  enemyID: Goblin
+  fragmentDropChance: 1
+  damagePopupPrefab: {fileID: 7579089163935683579, guid: c73f8fb0dbca6fe44b5add68a5a0be0d, type: 3}
 --- !u!114 &6287724149512500183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14957,8 +14957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2ae6b24b20be447bf56d7790d77eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  moneyReward: 10
-  restosReward: 2
+  moneyReward: 500
+  restosReward: 30
 --- !u!114 &7657023735160650265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14983,7 +14983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc10413a636d1043ac7d766c6eb7dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyXPReward
-  xpReward: 5
+  xpReward: 300
 --- !u!114 &7458600122326554448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14996,7 +14996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad17ca7be125ce34f8e2f9f9308d94a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 5
+  speed: 10
 --- !u!95 &2124886991213003242
 Animator:
   serializedVersion: 7

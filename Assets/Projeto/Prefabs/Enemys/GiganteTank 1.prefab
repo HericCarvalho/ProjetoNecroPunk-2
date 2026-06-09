@@ -15062,13 +15062,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6269320897ed0064aa728347ad84453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 1000
+  maxHealth: 300
   damage: 50
   attackRate: 1
   attackRange: 1
   moveSpeed: 3.5
   physicalResistance: 0.4
-  magicalResistance: 0.5
+  magicalResistance: 0.4
   isRanged: 0
   isMagical: 0
   burnResistance: 1
