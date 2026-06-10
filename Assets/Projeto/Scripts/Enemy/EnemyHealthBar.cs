@@ -23,7 +23,7 @@ public class EnemyHealthBar : MonoBehaviour
         transform.localPosition = offset;
 
         transform.LookAt(cam);
-        transform.Rotate(0, 180, 0);
+        transform.Rotate(0, 0, 0);
 
         float value = health.CurrentHealth / health.maxHealth;
         fillImage.fillAmount = value;

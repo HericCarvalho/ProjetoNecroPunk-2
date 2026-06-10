@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEconomy
   hud: {fileID: 0}
-  money: 300
+  money: 275
   restos: 0
 --- !u!114 &8719741865547445805
 MonoBehaviour:
@@ -387,6 +387,10 @@ MonoBehaviour:
       count: 8
       spawnDelay: 0.8
   - groups:
+    - enemyPrefab: {fileID: 4410906399909343884, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
+      count: 1
+      spawnDelay: 1
+  - groups:
     - enemyPrefab: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
       count: 33
       spawnDelay: 0.8
@@ -404,19 +408,25 @@ MonoBehaviour:
       count: 20
       spawnDelay: 0.7
   - groups:
-    - enemyPrefab: {fileID: 346362328367744805, guid: 72175fadcba27fc46a594ab98b506eb7, type: 3}
-      count: 15
-      spawnDelay: 0.8
+    - enemyPrefab: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
+      count: 40
+      spawnDelay: 0.6
     - enemyPrefab: {fileID: 325639068677735310, guid: eab625cc608da5e4faa1d703d94e348b, type: 3}
       count: 20
+      spawnDelay: 0.8
+    - enemyPrefab: {fileID: 346362328367744805, guid: 72175fadcba27fc46a594ab98b506eb7, type: 3}
+      count: 15
       spawnDelay: 0.8
     - enemyPrefab: {fileID: 5802578908337076125, guid: 413ff116950f9114b9f44a205121f65a, type: 3}
       count: 25
       spawnDelay: 0.7
   - groups:
-    - enemyPrefab: {fileID: 325639068677735310, guid: eab625cc608da5e4faa1d703d94e348b, type: 3}
+    - enemyPrefab: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
       count: 50
       spawnDelay: 0.7
+    - enemyPrefab: {fileID: 325639068677735310, guid: eab625cc608da5e4faa1d703d94e348b, type: 3}
+      count: 30
+      spawnDelay: 0.9
     - enemyPrefab: {fileID: 5802578908337076125, guid: 413ff116950f9114b9f44a205121f65a, type: 3}
       count: 25
       spawnDelay: 0.7
@@ -424,7 +434,7 @@ MonoBehaviour:
       count: 20
       spawnDelay: 0.9
   - groups:
-    - enemyPrefab: {fileID: 4410906399909343884, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
+    - enemyPrefab: {fileID: 5779837966196890171, guid: 8486dc3250d5e444fa87567da73b1c27, type: 3}
       count: 1
       spawnDelay: 1
 --- !u!114 &5096598942021425205
