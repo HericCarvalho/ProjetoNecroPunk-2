@@ -11011,6 +11011,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4193407267976999655, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 917.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193407267976999655, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 26.9
+      objectReference: {fileID: 0}
     - target: {fileID: 6562700761620821915, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12990,63 +12998,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aebcfe9d2ae75444f9749fee90276bfd, type: 3}
---- !u!1001 &1749082514
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -45.416245
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.023600694
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9.200161
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3926400744850696246, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410906399909343884, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
-      propertyPath: m_Name
-      value: GiganteTank 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac47454e663799640abe8e05ca6fd39c, type: 3}
 --- !u!1001 &1752246955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15940,6 +15891,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 322699268}
   - {fileID: 325364104}
   - {fileID: 1593947051}
   - {fileID: 1575279718}
@@ -15949,5 +15901,3 @@ SceneRoots:
   - {fileID: 668237044}
   - {fileID: 662062308}
   - {fileID: 85750806}
-  - {fileID: 322699268}
-  - {fileID: 1749082514}
