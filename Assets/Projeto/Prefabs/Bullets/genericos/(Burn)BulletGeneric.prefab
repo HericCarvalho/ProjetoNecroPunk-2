@@ -139,7 +139,7 @@ MonoBehaviour:
   stunDuration: 0
   baseDamage: 0
   soundData:
-    clip: {fileID: 8300000, guid: 152e2c6c755a46f4493f95c885d01ccc, type: 3}
+    clip: {fileID: 8300000, guid: 18262a08f9ba3484eb7f173db15314b0, type: 3}
     mixerGroup: {fileID: -5151788706607545606, guid: 234ea390b5bef3049ba15e8eaf46f092, type: 2}
     loop: 0
     playOnAwake: 1
