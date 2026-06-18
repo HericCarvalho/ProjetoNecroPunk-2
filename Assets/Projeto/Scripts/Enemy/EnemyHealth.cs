@@ -90,6 +90,7 @@ public class EnemyHealth : MonoBehaviour
 
     private float burnPopupTimer;
     private GameObject prefabReference;
+    bool isDead;
 
     #endregion
 
@@ -113,6 +114,8 @@ public class EnemyHealth : MonoBehaviour
 
     void ResetState()
     {
+        isDead = false;
+
         health = maxHealth;
 
         isBurning = false;
@@ -209,14 +212,23 @@ public class EnemyHealth : MonoBehaviour
 
     void HandleBurn()
     {
-        if (!isBurning) return;
+        if (!isBurning)
+            return;
 
         burnTimer -= Time.deltaTime;
 
         float damageThisFrame = burnDamagePerSecond * Time.deltaTime;
+
         health -= damageThisFrame;
 
+        if (health <= 0)
+        {
+            Die();
+            return;
+        }
+
         burnPopupTimer -= Time.deltaTime;
+
         if (burnPopupTimer <= 0f)
         {
             ShowDamagePopup((int)burnDamagePerSecond, false, true, true);
@@ -226,7 +238,9 @@ public class EnemyHealth : MonoBehaviour
         if (burnTimer <= 0f)
         {
             isBurning = false;
-            if (burnEffect != null) burnEffect.SetActive(false);
+
+            if (burnEffect != null)
+                burnEffect.SetActive(false);
         }
     }
 
@@ -347,6 +361,13 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        health = 0;
+
+        if (isDead)
+            return;
+
+        isDead = true;
+
         if (EnemyManager.instance != null)
             EnemyManager.instance.UnregisterEnemy(transform);
 

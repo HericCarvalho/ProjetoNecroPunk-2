@@ -131,18 +131,23 @@ public class TowerUIManager : MonoBehaviour
     }
     public void SellTower()
     {
-        if (currentTower == null) return;
+        if (currentTower == null)
+            return;
 
-        Vector3 pos = currentTower.transform.position;
+        BuildNode node =
+            currentTower.GetComponentInParent<BuildNode>();
 
         if (currentTower.data != null)
-            PlayerResources.instance.AddMoney(currentTower.data.sellValue);
+        {
+            PlayerResources.instance.AddMoney(
+                currentTower.data.sellValue
+            );
+        }
 
-        BuildNode node = currentTower.GetComponentInParent<BuildNode>();
         if (node != null)
         {
-            node.isOccupied = false;
             node.currentTower = null;
+            node.isOccupied = false;
         }
 
         Destroy(currentTower.gameObject);

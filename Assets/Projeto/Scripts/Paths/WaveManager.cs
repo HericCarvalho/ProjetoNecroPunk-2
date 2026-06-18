@@ -75,6 +75,9 @@ public class WaveManager : MonoBehaviour
         {
             StartCoroutine(HandleVictory());
         }
+        Debug.Log(
+    $"Wave {currentWave + 1} iniciou com {enemiesToSpawn} inimigos"
+);
     }
 
     void SpawnEnemy(GameObject enemyPrefab)
@@ -106,6 +109,11 @@ public class WaveManager : MonoBehaviour
     public void RegisterEnemyDeath()
     {
         enemiesKilled++;
+
+        Debug.Log(
+            $"Mortos: {enemiesKilled}/{enemiesToSpawn}"
+        );
+
         LevelStatsManager.instance.RegisterKill();
     }
     IEnumerator HandleVictory()

@@ -14875,7 +14875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       propertyPath: m_Name
-      value: Armadurado 1
+      value: (Revivido)Armadurado
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       propertyPath: m_TagString
@@ -14906,22 +14906,10 @@ PrefabInstance:
       addedObject: {fileID: 8720319217356588378}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6475661639111821961}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5797394996681570114}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5150231442502037891}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4299325279482300899}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3677374984225285646}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4175876388253225066}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4480059058785058943}
   m_SourcePrefab: {fileID: 100100000, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
 --- !u!1 &6238498753214489421 stripped
 GameObject:
@@ -14950,93 +14938,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6475661639111821961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238498753214489421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6269320897ed0064aa728347ad84453d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 35
-  damage: 5
-  attackRate: 1
-  attackRange: 1.5
-  moveSpeed: 8
-  physicalResistance: 0
-  magicalResistance: 0
-  isRanged: 0
-  isMagical: 1
-  burnResistance: 0
-  slowResistance: 0
-  stunResistance: 0
-  immuneToBurn: 0
-  immuneToSlow: 0
-  immuneToStun: 0
-  burnEffect: {fileID: 2787873750770918265}
-  slowEffect: {fileID: 5242722196484197263}
-  stunEffect: {fileID: 770455591243197468}
-  enemyID: Armadurado
-  fragmentDropChance: 1
-  damagePopupPrefab: {fileID: 7579089163935683579, guid: c73f8fb0dbca6fe44b5add68a5a0be0d, type: 3}
---- !u!114 &5797394996681570114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238498753214489421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad17ca7be125ce34f8e2f9f9308d94a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 8
-  rotationSpeed: 10
-  rotationOffset: {x: 0, y: 0, z: 0}
---- !u!114 &5150231442502037891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238498753214489421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfd78b4bf455d0d4a9cc3e15eaddc304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRegistration
---- !u!114 &4299325279482300899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238498753214489421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dc10413a636d1043ac7d766c6eb7dd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyXPReward
-  xpReward: 1
---- !u!114 &3677374984225285646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6238498753214489421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2ae6b24b20be447bf56d7790d77eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  moneyReward: 5
-  restosReward: 1
 --- !u!136 &4175876388253225066
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15060,6 +14961,27 @@ CapsuleCollider:
   m_Height: 4.26
   m_Direction: 1
   m_Center: {x: -0.36452436, y: 0.47, z: -0.9759381}
+--- !u!114 &4480059058785058943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238498753214489421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60003479c6c467041b680fb29ab47fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RevivedUnit
+  maxHealth: 100
+  damage: 10
+  moveSpeed: 3
+  attackRate: 1
+  attackRange: 1.5
+  range: 5
+  isRanged: 0
+  isMagic: 0
+  damagePopupPrefab: {fileID: 7579089163935683579, guid: c73f8fb0dbca6fe44b5add68a5a0be0d, type: 3}
 --- !u!4 &6762235365758695927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 576d430edbe6343c7aa36841ce370093, type: 3}

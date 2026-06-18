@@ -34,9 +34,14 @@ public class FragmentManager : MonoBehaviour
         return GetFragments(enemyID) >= 5;
     }
 
-    public void ConsumeFragments(string enemyID)
+    public void ConsumeFragments(string enemyID, int amount)
     {
-        if (fragments.ContainsKey(enemyID))
-            fragments[enemyID] -= 5;
+        if (!fragments.ContainsKey(enemyID))
+            return;
+
+        fragments[enemyID] -= amount;
+
+        if (fragments[enemyID] < 0)
+            fragments[enemyID] = 0;
     }
 }

@@ -10,26 +10,26 @@ public class ReviveManager : MonoBehaviour
         instance = this;
     }
 
-    public void Revive(string enemyID, GameObject prefab, int manaCost)
+    public void Revive(string enemyID,GameObject revivedPrefab,int manaCost,int fragmentCost)
     {
         if (!FragmentManager.instance.CanRevive(enemyID))
-        {
-            Debug.Log("Fragmentos insuficientes");
             return;
-        }
 
         if (!PlayerMana.instance.HasMana(manaCost))
-        {
-            Debug.Log("Mana insuficiente");
             return;
-        }
 
         PlayerMana.instance.SpendMana(manaCost);
-        FragmentManager.instance.ConsumeFragments(enemyID);
 
-        GameObject enemy = ObjectPool.instance.GetObject(prefab);
+        FragmentManager.instance.ConsumeFragments(
+            enemyID,
+            fragmentCost
+        );
 
-        enemy.transform.position = GetSpawnPosition();
+        Instantiate(
+            revivedPrefab,
+            GetSpawnPosition(),
+            Quaternion.identity
+        );
     }
 
     Vector3 GetSpawnPosition()

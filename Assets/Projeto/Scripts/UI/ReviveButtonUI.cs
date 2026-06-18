@@ -37,22 +37,18 @@ public class ReviveButtonUI : MonoBehaviour
 
         bool isAvailable = canRevive && hasMana;
 
-        // UI textos
         if (fragmentText != null)
             fragmentText.text = currentFragments + " / " + fragmentsRequired;
 
         if (manaText != null)
             manaText.text = (int)manaCost + " Mana";
 
-        // botão
         if (button != null)
             button.interactable = isAvailable;
 
-        // cor
         if (buttonImage != null)
             buttonImage.color = isAvailable ? availableColor : unavailableColor;
 
-        // animação ao ficar disponível
         if (isAvailable && !wasAvailableLastFrame)
         {
             AnimateButton();
@@ -63,6 +59,8 @@ public class ReviveButtonUI : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("Botão clicado");
+
         if (button != null && !button.interactable)
             return;
 
@@ -78,8 +76,11 @@ public class ReviveButtonUI : MonoBehaviour
             return;
         }
 
+        Debug.Log("Entrando em modo de posicionamento");
+
         PlayerMana.instance.SpendMana(manaCost);
-        FragmentManager.instance.ConsumeFragments(enemyID);
+        FragmentManager.instance.ConsumeFragments(enemyID,fragmentsRequired
+);
 
         PlacementManager.instance.StartPlacing(prefab);
     }

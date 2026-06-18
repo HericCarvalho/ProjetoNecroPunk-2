@@ -2505,6 +2505,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2001295406000933457, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: minX
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001295406000933457, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: minZ
+      value: -30
+      objectReference: {fileID: 0}
     - target: {fileID: 2134580158528326394, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2564,6 +2572,30 @@ PrefabInstance:
     - target: {fileID: 3334439708384406196, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
       propertyPath: m_Name
       value: ComponentesDaScena
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.42261827
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400900863022503335, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4015143157467279628, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
       propertyPath: necroUI
@@ -10927,6 +10959,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
+    - target: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: enemyID
+      value: Armadurado
+      objectReference: {fileID: 0}
+    - target: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: fragmentsRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 637340321580766905, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10935,6 +10979,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 325364105}
+    - target: {fileID: 956466637760060153, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289840639182971677, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457103930099515991, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2319155060778492862, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -11054,6 +11110,10 @@ PrefabInstance:
     - target: {fileID: 4193407267976999655, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 26.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297112736278345829, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6562700761620821915, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

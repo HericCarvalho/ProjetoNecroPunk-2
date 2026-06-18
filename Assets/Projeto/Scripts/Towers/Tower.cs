@@ -48,13 +48,16 @@ public class Tower : MonoBehaviour
     int fireRateUpgradeLevel;
 
     [Header("Animation")]
+
     [SerializeField] Animator animator;
 
-    [SerializeField] string attackTrigger = "Attack";
+    [SerializeField] bool useAttackAnimation = true;
 
-    [SerializeField] Transform idleRotator;
-    [SerializeField] float idleRotationSpeed = 30f;
+    [SerializeField] string attackTrigger = "Attack";
+    [SerializeField] string rotatingBool = "IsRotating";
+
     bool waitingAnimationShot = false;
+    private bool hasTargetState = false;
 
     private float baseSize;
     private GameObject rangeIndicatorInstance;
@@ -62,11 +65,14 @@ public class Tower : MonoBehaviour
 
     void Start()
     {
-        if (isPreview) return;
+        if (isPreview)
+            return;
 
-        UpdateIdleAnimation();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
 
         xpToNextLevel = data.baseXPToLevel;
+
 
         if (rangeIndicator != null)
         {
@@ -82,20 +88,29 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
-        if (isPreview) return;
+        RotateTowardsTarget();
+
+        if (isPreview)
+            return;
 
         if (target == null)
             FindTarget();
 
         if (target != null)
         {
-            float distance = Vector3.Distance(transform.position, target.position);
+            float distance = Vector3.Distance(
+                transform.position,
+                target.position
+            );
 
             if (distance > GetRange())
+            {
                 target = null;
-            else
-                RotateTowardsTarget();
+            }
         }
+
+        UpdateAnimationStates();
+
 
         if (attackType == AttackType.Laser)
         {
@@ -112,13 +127,18 @@ public class Tower : MonoBehaviour
 
         fireCountdown -= Time.deltaTime;
     }
+    void Awake()
+    {
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+    }
 
     void Shoot()
     {
         if (target == null)
             return;
 
-        if (animator != null)
+        if (animator != null && useAttackAnimation)
         {
             waitingAnimationShot = true;
             animator.SetTrigger(attackTrigger);
@@ -406,21 +426,26 @@ public class Tower : MonoBehaviour
 
     void RotateTowardsTarget()
     {
-        if (target == null || head == null)
+        if (head == null)
             return;
 
-        Vector3 direction = target.position - head.position;
+        if (target == null)
+            return;
+
+        Vector3 direction =
+            target.position - transform.position;
+
         direction.y = 0f;
 
-        if (direction.sqrMagnitude < 0.001f)
+        if (direction.sqrMagnitude < 0.01f)
             return;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 90, 0);
+        Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 90f, 0);
 
         head.rotation = Quaternion.RotateTowards(
             head.rotation,
             targetRotation,
-            rotationSpeed * 100f * Time.deltaTime
+            rotationSpeed * Time.deltaTime
         );
     }
 
@@ -482,28 +507,34 @@ public class Tower : MonoBehaviour
 
         waitingAnimationShot = false;
 
-        if (target == null)
-            return;
-
         ExecuteAttack();
     }
-    void UpdateIdleAnimation()
+    public void AnimationChargeFinished()
     {
-        if (idleRotator == null)
+        if (!waitingAnimationShot)
             return;
 
-        idleRotator.Rotate(
-            0f,
-            idleRotationSpeed * Time.deltaTime,
-            0f,
-            Space.Self
-        );
+        if (animator != null && useAttackAnimation)
+        {
+            animator.SetTrigger(attackTrigger);
+        }
+        else
+        {
+            AnimationShoot();
+        }
     }
-    void PlayAttackAnimation()
+    void UpdateAnimationStates()
     {
         if (animator == null)
             return;
 
-        animator.SetTrigger(attackTrigger);
+        bool hasTarget = target != null;
+
+        if (hasTarget == hasTargetState)
+            return;
+
+        hasTargetState = hasTarget;
+
+        animator.SetBool(rotatingBool, hasTarget);
     }
 }

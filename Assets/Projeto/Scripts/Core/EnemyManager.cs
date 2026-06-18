@@ -17,12 +17,23 @@ public class EnemyManager : MonoBehaviour
         if (!enemies.Contains(enemy))
         {
             enemies.Add(enemy);
+
+            Debug.Log("Registrou: " + enemy.name);
         }
     }
 
     public void UnregisterEnemy(Transform enemy)
     {
         enemies.Remove(enemy);
+
+        Debug.Log("Removeu: " + enemy.name);
+    }
+    public void Cleanup()
+    {
+        enemies.RemoveAll(e =>
+            e == null ||
+            !e.gameObject.activeInHierarchy
+        );
     }
 
     public int GetAliveEnemies()

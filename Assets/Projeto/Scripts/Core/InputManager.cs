@@ -67,15 +67,6 @@ public class InputManager : MonoBehaviour
             }
         }
 
-        if (node != null)
-        {
-            if (!node.HasTower())
-            {
-                BuildMenuUI.instance.OpenMenu(node);
-                return;
-            }
-        }
-
         TowerUIManager.instance.Close();
     }
 

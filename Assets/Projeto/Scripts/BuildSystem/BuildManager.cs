@@ -41,12 +41,12 @@ public class BuildManager : MonoBehaviour
 
     public void BuildOn(BuildNode node, TowerData tower)
     {
-        if (!CanBuildOn(node, tower)) return;
+        if (!CanBuildOn(node, tower))
+            return;
 
         PlayerResources.instance.Spend(tower.costMoney, 0);
 
-        GameObject builtTower = node.BuildTower(tower);
-
+        node.BuildTower(tower);
     }
 
     public void CancelBuild()

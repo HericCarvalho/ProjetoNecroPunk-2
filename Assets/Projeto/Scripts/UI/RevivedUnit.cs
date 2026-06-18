@@ -27,6 +27,8 @@ public class RevivedUnit : MonoBehaviour
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
 
+    public float leashDistance = 10f;
+
     public float CurrentHealth => health;
     void OnEnable()
     {
@@ -49,23 +51,42 @@ public class RevivedUnit : MonoBehaviour
         }
         else
         {
-            FindTarget();
+            ReturnToPosition();
+
+            if (Vector3.Distance(transform.position, startPosition) < 0.2f)
+            {
+                FindTarget();
+            }
         }
     }
 
     void FindTarget()
     {
+        EnemyManager.instance.Cleanup();
         float closestDistance = Mathf.Infinity;
         Transform bestTarget = null;
-
         foreach (Transform enemy in EnemyManager.instance.enemies)
         {
+            if (enemy == null)
+                continue;
+
             if (!enemy.gameObject.activeInHierarchy)
                 continue;
 
-            float distance = Vector3.Distance(transform.position, enemy.position);
+            EnemyHealth eh = enemy.GetComponent<EnemyHealth>();
 
-            if (distance < range && distance < closestDistance)
+            if (eh == null)
+                continue;
+
+            if (eh.CurrentHealth <= 0)
+                continue;
+
+            float distance = Vector3.Distance(
+                transform.position,
+                enemy.position
+            );
+
+            if (distance <= range && distance < closestDistance)
             {
                 closestDistance = distance;
                 bestTarget = enemy;
@@ -90,10 +111,21 @@ public class RevivedUnit : MonoBehaviour
 
     void HandleCombat()
     {
-        if (target == null || !target.gameObject.activeInHierarchy)
+        if (!IsTargetValid())
         {
             EndCombat();
-            ReturnToPosition();
+            return;
+        }
+
+        float distanceFromHome =
+    Vector3.Distance(
+        transform.position,
+        startPosition
+    );
+
+        if (distanceFromHome > leashDistance)
+        {
+            EndCombat();
             return;
         }
 
@@ -111,8 +143,17 @@ public class RevivedUnit : MonoBehaviour
 
     void MoveTo(Vector3 position)
     {
-        Vector3 dir = (position - transform.position).normalized;
-        transform.Translate(dir * moveSpeed * Time.deltaTime, Space.World);
+        Vector3 dir =
+            (position - transform.position).normalized;
+
+        transform.position +=
+            dir * moveSpeed * Time.deltaTime;
+
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            transform.rotation =
+                Quaternion.LookRotation(dir);
+        }
     }
 
     void Attack()
@@ -138,7 +179,10 @@ public class RevivedUnit : MonoBehaviour
         target = null;
         enemyMovement = null;
         enemyHealth = null;
+
         isFighting = false;
+
+        ReturnToPosition();
     }
 
     void ReturnToPosition()
@@ -163,6 +207,7 @@ public class RevivedUnit : MonoBehaviour
 
     void Die()
     {
+
         if (target != null)
         {
             EnemyMovement em = target.GetComponent<EnemyMovement>();
@@ -183,5 +228,21 @@ public class RevivedUnit : MonoBehaviour
         DamagePopup popup = popupGO.GetComponent<DamagePopup>();
 
         popup.Setup(damage, Color.gray, damagePopupPrefab);
+    }
+    bool IsTargetValid()
+    {
+        if (target == null)
+            return false;
+
+        if (!target.gameObject.activeInHierarchy)
+            return false;
+
+        if (enemyHealth == null)
+            return false;
+
+        if (enemyHealth.CurrentHealth <= 0)
+            return false;
+
+        return true;
     }
 }

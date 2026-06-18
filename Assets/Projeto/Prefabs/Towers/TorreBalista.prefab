@@ -854,9 +854,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66aaf59ee036d4b14b0a385cb3b83db2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7871774427848866089}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66aaf59ee036d4b14b0a385cb3b83db2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7075460448354474044}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66aaf59ee036d4b14b0a385cb3b83db2, type: 3}
       insertIndex: -1
@@ -878,28 +875,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 66aaf59ee036d4b14b0a385cb3b83db2, type: 3}
   m_PrefabInstance: {fileID: 1716560135444983760}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &7871774427848866089
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950933338013717121}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dc45346c7548b494b9d81e1b37c61e20, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7075460448354474044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,7 +890,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: bbb9d06d32e4df245a26a7283e24a644, type: 2}
   earthquakeAttack: {fileID: 0}
   head: {fileID: 8174288639049963350}
-  rotationSpeed: 20
+  rotationSpeed: 100
   firePoint: {fileID: 7325202975597377432}
   target: {fileID: 0}
   bulletPrefab: {fileID: 6831752942452076411, guid: 28e5d42c865b0714dba8b288e164f6c3, type: 3}
@@ -926,6 +901,14 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 0
   upgradePoints: 0
+  damageBaseCost: 5
+  rangeBaseCost: 5
+  fireRateBaseCost: 5
+  costMultiplier: 1.35
+  animator: {fileID: 0}
+  useAttackAnimation: 0
+  attackTrigger: Attack
+  rotatingBool: IsRotating
   isPreview: 0
 --- !u!114 &6880849543032765592
 MonoBehaviour:

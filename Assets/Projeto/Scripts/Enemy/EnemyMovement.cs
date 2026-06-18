@@ -13,6 +13,10 @@ public class EnemyMovement : MonoBehaviour
 
     private EnemyHealth stats;
 
+    [Header("Rotation")]
+    [SerializeField] float rotationSpeed = 10f;
+    [SerializeField] Vector3 rotationOffset;
+
     void Awake()
     {
         stats = GetComponent<EnemyHealth>();
@@ -21,7 +25,14 @@ public class EnemyMovement : MonoBehaviour
     void OnEnable()
     {
         waypointIndex = 0;
+
         hasReachedEnd = false;
+
+        isInCombat = false;
+
+        velocity = Vector3.zero;
+
+        lastPosition = transform.position;
     }
 
     void Update()
@@ -51,6 +62,19 @@ public class EnemyMovement : MonoBehaviour
         Vector3 dir = target.position - transform.position;
 
         float speed = stats.moveSpeed * stats.GetSlowMultiplier();
+
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation =
+                Quaternion.LookRotation(dir.normalized)
+                * Quaternion.Euler(rotationOffset);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
 
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 

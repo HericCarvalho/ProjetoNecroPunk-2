@@ -37,13 +37,18 @@ public class PlacementManager : MonoBehaviour
 
     public void StartPlacing(GameObject prefab)
     {
+        Debug.Log("StartPlacing chamado");
+
         if (prefab == null)
         {
-            Debug.LogError("Prefab NULL no StartPlacing!");
+            Debug.LogError("Prefab NULL");
             return;
         }
 
         unitToPlace = prefab;
+
+        Debug.Log("Prefab armazenado: " + prefab.name);
+
         justStartedPlacing = true;
 
         if (necroUI != null)
