@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
     [Header("Stats")]
     public float speed = 20f;
     public float damage = 50f;
@@ -21,23 +20,19 @@ public class Bullet : MonoBehaviour
     [Header("Effects Power")]
     public float burnDuration;
     public float burnDPS;
-
     public float slowDuration;
     public float slowMultiplier;
-
     public float stunDuration;
 
-    public float baseDamage;
+    private float baseDamage;
 
     [SerializeField] SoundData soundData;
 
     private Transform target;
     private EnemyHealth cachedEnemy;
-
     private GameObject prefabReference;
     private Tower ownerTower;
 
-    Vector3 direction;
     Vector3 targetPosition;
     bool usePredicted = false;
 
@@ -45,42 +40,52 @@ public class Bullet : MonoBehaviour
     {
         target = _target;
         prefabReference = prefab;
+        usePredicted = false;
 
         if (target == null) return;
 
         EnemyMovement em = target.GetComponent<EnemyMovement>();
-
         Vector3 predictedPos = target.position;
 
+        // Cálculo opcional de previsão de movimento para o disparo inicial
         if (em != null)
         {
             Vector3 enemyVelocity = em.GetVelocity();
-
             float distance = Vector3.Distance(transform.position, target.position);
             float timeToHit = distance / speed;
-
             predictedPos = target.position + enemyVelocity * timeToHit;
         }
 
-        direction = (predictedPos - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 90, 0);
+        targetPosition = predictedPos;
 
+        // Rotação inicial pura em direção ao ponto previsto
+        Vector3 direction = (predictedPos - transform.position).normalized;
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
 
         cachedEnemy = target.GetComponent<EnemyHealth>();
 
         if (tower != null)
             ownerTower = tower.GetComponent<Tower>();
     }
+
     public void SeekPosition(Vector3 pos, Transform _target, GameObject tower, GameObject prefab)
     {
         targetPosition = pos;
         target = _target;
         prefabReference = prefab;
+        usePredicted = true;
 
         cachedEnemy = _target != null ? _target.GetComponent<EnemyHealth>() : null;
         ownerTower = tower != null ? tower.GetComponent<Tower>() : null;
 
-        usePredicted = true;
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 
     void Awake()
@@ -93,38 +98,50 @@ public class Bullet : MonoBehaviour
         damage = baseDamage;
         cachedEnemy = null;
         ownerTower = null;
-       
+
         if (soundData != null)
         {
             SoundManager.Instance.CreateSoundBuilder()
-                .WithGameObjectAsParent(this.transform) 
+                .WithGameObjectAsParent(this.transform)
                 .WithRandomPitch()
                 .Play(soundData);
         }
-
     }
+
     void Update()
     {
-        if (target == null)
+        // Se o alvo morrer antes do impacto, o míssil vai até à última posição conhecida
+        if (target == null && !usePredicted)
         {
-            ReturnToPool();
-            return;
+            // Opcional: Se preferir que o míssil suma imediatamente quando o alvo morre, descomente a linha abaixo:
+            // ReturnToPool(); return;
+        }
+        else if (target != null && !usePredicted)
+        {
+            // Atualiza a posição do alvo em tempo real (Teleguiado puro)
+            targetPosition = target.position;
         }
 
-        Vector3 aimPoint = usePredicted ? targetPosition : target.position;
-        Vector3 offset = target.forward * -4f;
-        Vector3 dir = (target.position + offset) - transform.position;
+        // Calcula a direção DIRETA até ao inimigo (Sem offsets estranhos)
+        Vector3 dir = targetPosition - transform.position;
         Vector3 move = dir.normalized * speed * Time.deltaTime;
 
-        transform.rotation = Quaternion.LookRotation(dir) * Quaternion.Euler(0, 90, 0);
+        // Faz o projétil olhar diretamente para onde está a andar
+        if (dir != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(dir);
+        }
 
+        // Move o projétil
         transform.position += move;
 
+        // Verifica o impacto com base na distância que se moveu neste frame
         if (move.magnitude >= dir.magnitude)
         {
             HitTarget();
         }
     }
+
     void HitTarget()
     {
         if (cachedEnemy != null)

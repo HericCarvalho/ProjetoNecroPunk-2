@@ -849,7 +849,7 @@ MonoBehaviour:
   rotationSpeed: 10
   firePoint: {fileID: 8423281151499969966}
   target: {fileID: 0}
-  bulletPrefab: {fileID: 8214901827094675342, guid: 0a5e60f437bef6f4c9cb375ad52d0ae4, type: 3}
+  bulletPrefab: {fileID: 4043568107938818028, guid: 241028d9952a6bf48b0ff24612acaafe, type: 3}
   rangeIndicator: {fileID: 767256611924886699, guid: c0ae0349ee5d9374791e445e43997986, type: 3}
   attackType: 0
   towerType: 2
@@ -857,6 +857,14 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 0
   upgradePoints: 0
+  damageBaseCost: 5
+  rangeBaseCost: 5
+  fireRateBaseCost: 5
+  costMultiplier: 1.35
+  animator: {fileID: 0}
+  attackTrigger: Attack
+  idleRotator: {fileID: 0}
+  idleRotationSpeed: 30
   isPreview: 0
 --- !u!114 &4596672652455556488
 MonoBehaviour:
