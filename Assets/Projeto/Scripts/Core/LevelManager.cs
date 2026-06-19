@@ -60,6 +60,10 @@ public class LevelManager : MonoBehaviour
             SceneLoader.instance.LoadScene("Menu", hud);
         }
     }
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void WinGame()
     {
         if (LevelStatsManager.instance != null)
@@ -76,7 +80,10 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0f;
         winPanel.SetActive(true);
     }
-
+    public void GoToMenuPrincipal()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
+    }
     public void GameOver()
     {
         Time.timeScale = 0f;
@@ -104,5 +111,9 @@ public class LevelManager : MonoBehaviour
     public bool IsReviveOpen()
     {
         return isReviveOpen;
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
