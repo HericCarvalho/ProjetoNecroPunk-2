@@ -15,6 +15,7 @@ public class Tower : MonoBehaviour
 
     public Transform head;
     public float rotationSpeed = 10f;
+    public float rotationOffset = 90f;
     public Transform firePoint;
     public Transform target;
 
@@ -394,20 +395,38 @@ public class Tower : MonoBehaviour
         upgradePoints--;
         fireRateUpgradeLevel++;
     }
-    public void TryEvolve()
+    public Tower TryEvolve()
     {
-        if (level < 2) return;
-        if (data.nextUpgrade == null) return;
+        if (level < 2)
+            return null;
+
+        if (data.nextUpgrade == null)
+            return null;
 
         int cost = 20;
 
         if (!PlayerResources.instance.CanAfford(0, cost))
-            return;
+            return null;
 
         PlayerResources.instance.Spend(0, cost);
 
-        Instantiate(data.nextUpgrade.prefab, transform.position, transform.rotation);
+        BuildNode node = GetComponentInParent<BuildNode>();
+
+        GameObject newTowerGO = Instantiate(
+            data.nextUpgrade.prefab,
+            transform.position,
+            transform.rotation
+        );
+
+        newTowerGO.transform.SetParent(node.transform);
+
+        Tower newTower = newTowerGO.GetComponent<Tower>();
+
+        node.currentTower = newTower;
+
         Destroy(gameObject);
+
+        return newTower;
     }
 
     public void Transmute(TowerData option)
@@ -415,7 +434,18 @@ public class Tower : MonoBehaviour
         if (level < 10) return;
         if (option == null) return;
 
-        Instantiate(option.prefab, transform.position, transform.rotation);
+        BuildNode node = GetComponentInParent<BuildNode>();
+
+        GameObject newTowerGO = Instantiate(
+            option.prefab,
+            transform.position,
+            transform.rotation
+        );
+
+        newTowerGO.transform.SetParent(node.transform);
+
+        node.currentTower = newTowerGO.GetComponent<Tower>();
+
         Destroy(gameObject);
     }
 
@@ -440,7 +470,9 @@ public class Tower : MonoBehaviour
         if (direction.sqrMagnitude < 0.01f)
             return;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 90f, 0);
+        Quaternion targetRotation =
+    Quaternion.LookRotation(direction) *
+    Quaternion.Euler(0, rotationOffset, 0);
 
         head.rotation = Quaternion.RotateTowards(
             head.rotation,

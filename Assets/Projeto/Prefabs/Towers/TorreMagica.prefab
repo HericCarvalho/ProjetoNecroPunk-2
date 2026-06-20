@@ -862,9 +862,9 @@ MonoBehaviour:
   fireRateBaseCost: 5
   costMultiplier: 1.35
   animator: {fileID: 0}
-  attackTrigger: Attack
-  idleRotator: {fileID: 0}
-  idleRotationSpeed: 30
+  useAttackAnimation: 0
+  attackTrigger: 
+  rotatingBool: 
   isPreview: 0
 --- !u!114 &4596672652455556488
 MonoBehaviour:

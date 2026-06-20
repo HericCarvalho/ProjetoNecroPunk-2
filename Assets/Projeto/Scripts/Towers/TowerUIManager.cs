@@ -54,6 +54,8 @@ public class TowerUIManager : MonoBehaviour
         currentTower = tower;
 
         panel.SetActive(true);
+
+        currentTower.ShowRange();
     }
 
     void Update()
@@ -121,8 +123,10 @@ public class TowerUIManager : MonoBehaviour
 
     public void Evolve()
     {
-        currentTower.TryEvolve();
-        Close();
+        Tower newTower = currentTower.TryEvolve();
+
+        if (newTower != null)
+            SelectTower(newTower);
     }
 
     public void OpenTransmute()
