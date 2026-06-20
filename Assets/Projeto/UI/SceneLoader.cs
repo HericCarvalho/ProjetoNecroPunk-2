@@ -240,7 +240,15 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadSceneByIndex(int index, CanvasGroup hudGroup = null)
     {
-        string sceneName = SceneManager.GetSceneByBuildIndex(index).name;
+        if (index < 0 || index >= SceneManager.sceneCountInBuildSettings)
+        {
+            Debug.LogError($"Scene index inválido: {index}");
+            return;
+        }
+
+        string scenePath = SceneUtility.GetScenePathByBuildIndex(index);
+        string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+
         LoadScene(sceneName, hudGroup);
     }
 }

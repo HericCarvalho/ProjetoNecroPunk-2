@@ -906,7 +906,7 @@ Animator:
   m_GameObject: {fileID: 8919679645820292701}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: abdfce8d61a7ba64c91593c12d01b280, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -934,10 +934,11 @@ MonoBehaviour:
   earthquakeAttack: {fileID: 5501082335179171586}
   head: {fileID: 0}
   rotationSpeed: 10
+  rotationOffset: 90
   firePoint: {fileID: 4817201944653208348}
   target: {fileID: 0}
   bulletPrefab: {fileID: 0}
-  rangeIndicator: {fileID: 767256611924886699, guid: c0ae0349ee5d9374791e445e43997986, type: 3}
+  rangeIndicator: {fileID: 0}
   attackType: 2
   towerType: 4
   level: 1
@@ -948,10 +949,10 @@ MonoBehaviour:
   rangeBaseCost: 5
   fireRateBaseCost: 5
   costMultiplier: 1.35
-  animator: {fileID: 0}
+  animator: {fileID: 707648833820331436}
+  useAttackAnimation: 1
   attackTrigger: Attack
-  idleRotator: {fileID: 0}
-  idleRotationSpeed: 30
+  rotatingBool: IsRotating
   isPreview: 0
 --- !u!114 &3916737435796732791
 MonoBehaviour:

@@ -847,10 +847,11 @@ MonoBehaviour:
   earthquakeAttack: {fileID: 0}
   head: {fileID: 0}
   rotationSpeed: 10
+  rotationOffset: 90
   firePoint: {fileID: 8423281151499969966}
   target: {fileID: 0}
   bulletPrefab: {fileID: 4043568107938818028, guid: 241028d9952a6bf48b0ff24612acaafe, type: 3}
-  rangeIndicator: {fileID: 767256611924886699, guid: c0ae0349ee5d9374791e445e43997986, type: 3}
+  rangeIndicator: {fileID: 0}
   attackType: 0
   towerType: 2
   level: 1
