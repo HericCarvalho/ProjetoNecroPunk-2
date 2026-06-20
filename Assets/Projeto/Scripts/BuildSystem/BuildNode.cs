@@ -7,11 +7,7 @@ public class BuildNode : MonoBehaviour
 
     void Update()
     {
-        if (currentTower == null)
-            Debug.Log("Sem torre");
 
-        else
-            Debug.Log(currentTower.name);
     }
     public bool CanBuild()
     {

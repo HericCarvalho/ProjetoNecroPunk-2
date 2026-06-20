@@ -63,6 +63,7 @@ public class Tower : MonoBehaviour
     private float baseSize;
     private GameObject rangeIndicatorInstance;
     public bool isPreview = false;
+    private Transform lockedTarget;
 
     void Start()
     {
@@ -139,6 +140,8 @@ public class Tower : MonoBehaviour
         if (target == null)
             return;
 
+        lockedTarget = target;
+
         if (animator != null && useAttackAnimation)
         {
             waitingAnimationShot = true;
@@ -169,6 +172,9 @@ public class Tower : MonoBehaviour
 
     void ProjectileAttack()
     {
+        if (lockedTarget == null)
+            return;
+
         GameObject bulletGO = ObjectPool.instance.GetObject(bulletPrefab);
 
         bulletGO.transform.position = firePoint.position;
@@ -176,7 +182,7 @@ public class Tower : MonoBehaviour
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
-        Vector3 predictedPos = GetPredictedPosition(target);
+        Vector3 predictedPos = GetPredictedPosition(lockedTarget);
 
         bullet.SeekPosition(predictedPos, target, gameObject, bulletPrefab);
 
@@ -511,15 +517,44 @@ public class Tower : MonoBehaviour
 
     Vector3 GetPredictedPosition(Transform target)
     {
+        if (target == null)
+        {
+            Debug.LogError("GetPredictedPosition: TARGET NULL");
+            return transform.position;
+        }
+
+        if (firePoint == null)
+        {
+            Debug.LogError("GetPredictedPosition: FIREPOINT NULL");
+            return target.position;
+        }
+
+        if (bulletPrefab == null)
+        {
+            Debug.LogError("GetPredictedPosition: BULLETPREFAB NULL");
+            return target.position;
+        }
+
         EnemyMovement em = target.GetComponent<EnemyMovement>();
 
         if (em == null)
+        {
+            Debug.LogError("GetPredictedPosition: EnemyMovement NULL");
             return target.position;
+        }
 
         Vector3 velocity = em.GetVelocity();
 
-        float distance = Vector3.Distance(firePoint.position, target.position);
-        float timeToHit = distance / GetProjectileSpeed();
+        float distance = Vector3.Distance(
+            firePoint.position,
+            target.position
+        );
+
+        float projectileSpeed = GetProjectileSpeed();
+
+        Debug.Log("Projectile Speed = " + projectileSpeed);
+
+        float timeToHit = distance / projectileSpeed;
 
         timeToHit = Mathf.Clamp(timeToHit, 0f, 4f);
 
@@ -528,16 +563,33 @@ public class Tower : MonoBehaviour
 
     float GetProjectileSpeed()
     {
+        if (bulletPrefab == null)
+        {
+            Debug.LogError("BULLETPREFAB NULL em GetProjectileSpeed");
+            return 20f;
+        }
+
         Bullet b = bulletPrefab.GetComponent<Bullet>();
-        return b != null ? b.speed : 20f;
+
+        if (b == null)
+        {
+            Debug.LogError("Bullet component não encontrado");
+            return 20f;
+        }
+
+        return b.speed;
     }
 
     public void AnimationShoot()
     {
-        if (!waitingAnimationShot)
+        Debug.Log($"EVENTO CHAMADO | waitingAnimationShot = {waitingAnimationShot}");
+
+        if (lockedTarget == null)
             return;
 
         waitingAnimationShot = false;
+
+        target = lockedTarget;
 
         ExecuteAttack();
     }

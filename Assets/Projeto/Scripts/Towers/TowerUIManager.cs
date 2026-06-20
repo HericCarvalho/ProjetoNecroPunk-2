@@ -41,7 +41,6 @@ public class TowerUIManager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("TowerUIManager Awake");
 
         instance = this;
 

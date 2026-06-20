@@ -18,7 +18,6 @@ public class EnemyManager : MonoBehaviour
         {
             enemies.Add(enemy);
 
-            Debug.Log("Registrou: " + enemy.name);
         }
     }
 

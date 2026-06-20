@@ -41,11 +41,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: tiro
-      takeName: tiro
+      name: Armature|tiro (1)
+      takeName: Armature|tiro
       internalID: 2411324440315856430
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -63,10 +63,56 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: Curve
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events:
-      - time: 0.14088398
-        functionName: tiro
+      - time: 0.08563537
+        functionName: AnimationShoot
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: a03c0f84ef230964c9af56c76c6e3ab8, type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.38645416
+        functionName: AnimationShoot
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: a03c0f84ef230964c9af56c76c6e3ab8, type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.67729086
+        functionName: AnimationShoot
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: a03c0f84ef230964c9af56c76c6e3ab8, type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.97609556
+        functionName: AnimationShoot
         data: 
         objectReferenceParameter: {fileID: 11400000, guid: a03c0f84ef230964c9af56c76c6e3ab8, type: 2}
         floatParameter: 0
