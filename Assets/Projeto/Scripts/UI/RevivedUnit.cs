@@ -18,6 +18,11 @@ public class RevivedUnit : MonoBehaviour
     [Header("Damage Popup")]
     public GameObject damagePopupPrefab;
 
+    [Header("Range Visual")]
+    public GameObject rangeIndicatorPrefab;
+
+    private GameObject rangeIndicatorInstance;
+
     private Transform target;
     private Vector3 startPosition;
 
@@ -26,8 +31,12 @@ public class RevivedUnit : MonoBehaviour
 
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
+    private UnitAnimatorController anim;
 
-    public float leashDistance = 10f;
+    public float leashDistance = 5f;
+    public float detectRange = 5f;
+    private bool isAttacking;
+    private bool canAttack = false;
 
     public float CurrentHealth => health;
     void OnEnable()
@@ -36,96 +45,36 @@ public class RevivedUnit : MonoBehaviour
         startPosition = transform.position;
 
         target = null;
-        isFighting = false;
+        enemyHealth = null;
         attackCooldown = 0f;
 
-        enemyMovement = null;
-        enemyHealth = null;
+        transform.position = new Vector3(
+            transform.position.x,
+            1.5f,
+            transform.position.z
+        );
     }
+    void Start()
+    {
+        health = maxHealth;
+        startPosition = transform.position;
 
+    }
     void Update()
     {
-        if (isFighting)
+        if (anim == null)
+            anim = GetComponentInChildren<UnitAnimatorController>();
+
+        if (target == null)
         {
-            HandleCombat();
-        }
-        else
-        {
+            FindTarget();
             ReturnToPosition();
-
-            if (Vector3.Distance(transform.position, startPosition) < 0.2f)
-            {
-                FindTarget();
-            }
-        }
-    }
-
-    void FindTarget()
-    {
-        EnemyManager.instance.Cleanup();
-        float closestDistance = Mathf.Infinity;
-        Transform bestTarget = null;
-        foreach (Transform enemy in EnemyManager.instance.enemies)
-        {
-            if (enemy == null)
-                continue;
-
-            if (!enemy.gameObject.activeInHierarchy)
-                continue;
-
-            EnemyHealth eh = enemy.GetComponent<EnemyHealth>();
-
-            if (eh == null)
-                continue;
-
-            if (eh.CurrentHealth <= 0)
-                continue;
-
-            float distance = Vector3.Distance(
-                transform.position,
-                enemy.position
-            );
-
-            if (distance <= range && distance < closestDistance)
-            {
-                closestDistance = distance;
-                bestTarget = enemy;
-            }
-        }
-
-        if (bestTarget != null)
-        {
-            target = bestTarget;
-            isFighting = true;
-
-            enemyMovement = target.GetComponent<EnemyMovement>();
-            enemyHealth = target.GetComponent<EnemyHealth>();
-
-            if (enemyMovement != null)
-                enemyMovement.SetCombat(true);
-
-            if (enemyHealth != null)
-                enemyHealth.SetTarget(transform);
-        }
-    }
-
-    void HandleCombat()
-    {
-        if (!IsTargetValid())
-        {
-            EndCombat();
             return;
         }
 
-        float distanceFromHome =
-    Vector3.Distance(
-        transform.position,
-        startPosition
-    );
-
-        if (distanceFromHome > leashDistance)
+        if (!IsTargetValid())
         {
-            EndCombat();
+            ClearTarget();
             return;
         }
 
@@ -134,28 +83,48 @@ public class RevivedUnit : MonoBehaviour
         if (distance > attackRange)
         {
             MoveTo(target.position);
+            return;
         }
-        else
-        {
-            Attack();
-        }
+
+        Attack();
     }
 
-    void MoveTo(Vector3 position)
+    void FindTarget()
     {
-        Vector3 dir =
-            (position - transform.position).normalized;
+        Collider[] hits = Physics.OverlapSphere(transform.position, range);
 
-        transform.position +=
-            dir * moveSpeed * Time.deltaTime;
+        Transform best = null;
+        float closest = Mathf.Infinity;
 
-        if (dir.sqrMagnitude > 0.001f)
+        foreach (Collider hit in hits)
         {
-            transform.rotation =
-                Quaternion.LookRotation(dir);
-        }
-    }
+            if (!hit.CompareTag("Enemy"))
+                continue;
 
+            EnemyHealth eh = hit.GetComponent<EnemyHealth>();
+
+            if (eh == null || eh.CurrentHealth <= 0)
+                continue;
+
+            float dist = Vector3.Distance(transform.position, hit.transform.position);
+
+            if (dist < closest)
+            {
+                closest = dist;
+                best = hit.transform;
+            }
+        }
+
+        if (best == null)
+            return;
+
+        target = best;
+        enemyHealth = target.GetComponent<EnemyHealth>();
+        enemyMovement = target.GetComponent<EnemyMovement>();
+
+        if (enemyMovement != null)
+            enemyMovement.SetCombat(true);
+    }
     void Attack()
     {
         attackCooldown -= Time.deltaTime;
@@ -163,14 +132,39 @@ public class RevivedUnit : MonoBehaviour
         if (attackCooldown > 0f)
             return;
 
-        if (enemyHealth != null)
-        {
-            enemyHealth.TakeDamage(damage, isMagic, false);
-        }
+        if (enemyHealth == null)
+            return;
+
+        anim.PlayAttack();
 
         attackCooldown = 1f / attackRate;
     }
+    void ClearTarget()
+    {
+        if (enemyMovement != null)
+            enemyMovement.SetCombat(false);
 
+        target = null;
+        enemyMovement = null;
+        enemyHealth = null;
+    }
+
+    void MoveTo(Vector3 position)
+    {
+        Vector3 dir = (position - transform.position).normalized;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            Quaternion rot = Quaternion.LookRotation(dir);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                rot,
+                10f * Time.deltaTime
+            );
+        }
+    }
     void EndCombat()
     {
         if (enemyMovement != null)
@@ -179,20 +173,13 @@ public class RevivedUnit : MonoBehaviour
         target = null;
         enemyMovement = null;
         enemyHealth = null;
-
-        isFighting = false;
-
-        ReturnToPosition();
+        attackCooldown = 0f;
     }
-
     void ReturnToPosition()
     {
         if (Vector3.Distance(transform.position, startPosition) > 0.2f)
-        {
             MoveTo(startPosition);
-        }
     }
-
     public void TakeDamage(float amount)
     {
         health -= amount;
@@ -201,21 +188,25 @@ public class RevivedUnit : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+            gameObject.SetActive(false);
         }
     }
 
     void Die()
     {
+        if (enemyMovement != null)
+            enemyMovement.SetCombat(false);
 
-        if (target != null)
-        {
-            EnemyMovement em = target.GetComponent<EnemyMovement>();
-            if (em != null)
-                em.SetCombat(false);
-        }
+        enemyMovement = null;
+        enemyHealth = null;
+        target = null;
 
-        gameObject.SetActive(false);
+        attackCooldown = 0f;
+
+        enabled = false;
+
+        if (anim != null)
+            anim.PlayDeath();
     }
     void ShowDamagePopup(int damage)
     {
@@ -231,18 +222,23 @@ public class RevivedUnit : MonoBehaviour
     }
     bool IsTargetValid()
     {
-        if (target == null)
-            return false;
-
-        if (!target.gameObject.activeInHierarchy)
-            return false;
-
-        if (enemyHealth == null)
-            return false;
-
-        if (enemyHealth.CurrentHealth <= 0)
-            return false;
-
-        return true;
+        return target != null &&
+               target.gameObject.activeInHierarchy &&
+               enemyHealth != null &&
+               enemyHealth.CurrentHealth > 0;
+    }
+    public void SetHomePosition(Vector3 pos)
+    {
+        startPosition = pos;
+    }
+   
+    public void OnAnimationAttackHit()
+    {
+        if (enemyHealth != null)
+            enemyHealth.TakeDamage(damage, isMagic, false);
+    }
+    public void OnAttackAnimationEnd()
+    {
+        isAttacking = false;
     }
 }

@@ -14906,6 +14906,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a1d3383fa8c947f5b54c13217191aac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6606788205342515738}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a1d3383fa8c947f5b54c13217191aac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2645804576149221948}
   m_SourcePrefab: {fileID: 100100000, guid: 2a1d3383fa8c947f5b54c13217191aac, type: 3}
 --- !u!1 &5779837966196890171 stripped
 GameObject:
@@ -14996,7 +14999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad17ca7be125ce34f8e2f9f9308d94a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 10
+  state: 0
 --- !u!95 &2124886991213003242
 Animator:
   serializedVersion: 7
@@ -15042,6 +15045,22 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 1.15, y: 2.37, z: 0}
+--- !u!114 &2645804576149221948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5779837966196890171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e090aa24d98ecf4f86ec8305a876978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimatorController
+  animator: {fileID: 2124886991213003242}
+  moveBool: IsMoving
+  attackTrigger: Attack
+  speedFloat: Speed
 --- !u!4 &6592650474968252545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a1d3383fa8c947f5b54c13217191aac, type: 3}

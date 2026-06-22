@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -84,8 +85,10 @@ public class EnemyHealth : MonoBehaviour
 
     #region === RUNTIME ===
 
+    private UnitAnimatorController anim;
     private float health;
     private float attackCooldown;
+    private bool isAttacking;
     private Transform combatTarget;
 
     private float burnPopupTimer;
@@ -98,6 +101,9 @@ public class EnemyHealth : MonoBehaviour
 
     void OnEnable()
     {
+        if (anim == null)
+            anim = GetComponentInChildren<UnitAnimatorController>();
+
         ResetState();
         RegisterSystems();
     }
@@ -171,7 +177,15 @@ public class EnemyHealth : MonoBehaviour
     {
         combatTarget = target;
     }
+    public void OnAnimationAttackHit()
+    {
+        if (combatTarget == null) return;
 
+        RevivedUnit unit = combatTarget.GetComponent<RevivedUnit>();
+
+        if (unit != null)
+            unit.TakeDamage(damage);
+    }
     void HandleCombat()
     {
         if (combatTarget == null)
@@ -180,19 +194,41 @@ public class EnemyHealth : MonoBehaviour
         float distance = Vector3.Distance(transform.position, combatTarget.position);
 
         if (distance > attackRange)
+        {
+            isAttacking = false;
             return;
+        }
 
         attackCooldown -= Time.deltaTime;
 
-        if (attackCooldown <= 0f)
+        if (attackCooldown > 0f)
+            return;
+
+        if (!isAttacking)
         {
-            RevivedUnit unit = combatTarget.GetComponent<RevivedUnit>();
-
-            if (unit != null)
-                unit.TakeDamage(damage);
-
-            attackCooldown = 1f / attackRate;
+            StartAttack();
         }
+    }
+    void Attack()
+    {
+        if (anim != null)
+            anim.PlayAttack();
+
+        RevivedUnit unit = combatTarget.GetComponent<RevivedUnit>();
+
+        if (unit != null)
+            unit.TakeDamage(damage);
+
+        attackCooldown = 1f / attackRate;
+    }
+    void StartAttack()
+    {
+        isAttacking = true;
+        Debug.Log("ATAQUE INICIADO");
+        if (anim != null)
+            anim.PlayAttack();
+
+        attackCooldown = 1f / attackRate;
     }
 
     #endregion
@@ -361,12 +397,11 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        health = 0;
-
-        if (isDead)
-            return;
+        if (isDead) return;
 
         isDead = true;
+
+        health = 0;
 
         if (EnemyManager.instance != null)
             EnemyManager.instance.UnregisterEnemy(transform);
@@ -383,15 +418,24 @@ public class EnemyHealth : MonoBehaviour
 
         TryDropFragment();
 
-        if (ObjectPool.instance != null && prefabReference != null)
+        var move = GetComponent<EnemyMovement>();
+        if (move != null)
         {
-            ObjectPool.instance.ReturnObject(gameObject, prefabReference);
+            move.enabled = false;
         }
-        else
+
+        if (anim != null)
         {
-            Debug.LogError("PrefabReference NULL no EnemyHealth!");
-            gameObject.SetActive(false);
+            anim.SetSpeed(0f);
+            anim.PlayDeath();
         }
+    }
+    public void OnDeathAnimationFinished()
+    {
+        if (ObjectPool.instance == null || prefabReference == null)
+            return;
+
+        ObjectPool.instance.ReturnObject(gameObject, prefabReference);
     }
 
     #endregion

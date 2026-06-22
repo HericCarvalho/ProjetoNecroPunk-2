@@ -31,11 +31,35 @@ public class ObjectPool : MonoBehaviour
         }
 
         GameObject objToUse = pool.Dequeue();
+
         objToUse.transform.position = spawnPos;
+
+        ResetObject(objToUse);
+
         if (autoActivate)
             objToUse.SetActive(true);
 
         return objToUse;
+    }
+    private void ResetObject(GameObject obj)
+    {
+        var move = obj.GetComponent<EnemyMovement>();
+        if (move != null)
+        {
+            move.enabled = true;
+            move.state = EnemyState.Moving;
+        }
+
+        var health = obj.GetComponent<EnemyHealth>();
+        if (health != null)
+        {
+            health.SetTarget(null);
+        }
+
+        if (move != null)
+        {
+            move.SendMessage("ResetEnemy", SendMessageOptions.DontRequireReceiver);
+        }
     }
     public void ReturnObject(GameObject obj, GameObject prefab)
     {
@@ -46,6 +70,19 @@ public class ObjectPool : MonoBehaviour
         }
 
         obj.transform.position = new Vector3(0, -1000, 0);
+
+        var move = obj.GetComponent<EnemyMovement>();
+        if (move != null)
+        {
+            move.state = EnemyState.Moving;
+        }
+
+        var health = obj.GetComponent<EnemyHealth>();
+        if (health != null)
+        {
+            health.SetTarget(null);
+        }
+
         obj.SetActive(false);
 
         if (!pools.ContainsKey(prefab))

@@ -62,8 +62,18 @@ public class PlacementManager : MonoBehaviour
         if (pos == Vector3.zero)
             return;
 
-        GameObject unit = ObjectPool.instance.GetObject(unitToPlace);
+        GameObject unit =
+    ObjectPool.instance.GetObject(unitToPlace);
+
         unit.transform.position = pos;
+
+        RevivedUnit revived =
+            unit.GetComponent<RevivedUnit>();
+
+        if (revived != null)
+        {
+            revived.SetHomePosition(pos);
+        }
 
         unitToPlace = null;
 

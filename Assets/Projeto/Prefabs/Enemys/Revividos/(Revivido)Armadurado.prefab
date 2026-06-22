@@ -14879,11 +14879,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 9067324096498802533, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14910,6 +14910,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4480059058785058943}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6439091817587919512}
   m_SourcePrefab: {fileID: 100100000, guid: 576d430edbe6343c7aa36841ce370093, type: 3}
 --- !u!1 &6238498753214489421 stripped
 GameObject:
@@ -14957,10 +14960,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.56
-  m_Height: 4.26
+  m_Radius: 0.55999994
+  m_Height: 4.8534036
   m_Direction: 1
-  m_Center: {x: -0.36452436, y: 0.47, z: -0.9759381}
+  m_Center: {x: -0.36452436, y: 0.17329812, z: -0.9759381}
 --- !u!114 &4480059058785058943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14976,12 +14979,31 @@ MonoBehaviour:
   maxHealth: 100
   damage: 10
   moveSpeed: 3
-  attackRate: 1
-  attackRange: 1.5
+  attackRate: 2
+  attackRange: 5
   range: 5
   isRanged: 0
   isMagic: 0
   damagePopupPrefab: {fileID: 7579089163935683579, guid: c73f8fb0dbca6fe44b5add68a5a0be0d, type: 3}
+  rangeIndicatorPrefab: {fileID: 0}
+  leashDistance: 5
+  detectRange: 5
+--- !u!114 &-6439091817587919512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238498753214489421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e090aa24d98ecf4f86ec8305a876978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimatorController
+  animator: {fileID: 8720319217356588378}
+  moveBool: IsMoving
+  attackTrigger: Attack
+  speedFloat: Speed
 --- !u!4 &6762235365758695927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 576d430edbe6343c7aa36841ce370093, type: 3}

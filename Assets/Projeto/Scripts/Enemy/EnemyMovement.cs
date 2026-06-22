@@ -1,54 +1,110 @@
 using UnityEngine;
 
+public enum EnemyState
+{
+    Moving,
+    Combat,
+    Dead
+}
+
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    private int waypointIndex = 0;
-
-    bool hasReachedEnd = false;
-    private bool isInCombat = false;
-
-    Vector3 lastPosition;
-    Vector3 velocity;
+    public EnemyState state = EnemyState.Moving;
+    public bool IsDead => state == EnemyState.Dead;
 
     private EnemyHealth stats;
+    private UnitAnimatorController anim;
 
-    [Header("Rotation")]
-    [SerializeField] float rotationSpeed = 10f;
-    [SerializeField] Vector3 rotationOffset;
+    private Vector3 lastPosition;
+    private Vector3 velocity;
+    private Transform combatTarget;
+
+    private int waypointIndex = 0;
 
     void Awake()
     {
         stats = GetComponent<EnemyHealth>();
+        anim = GetComponentInChildren<UnitAnimatorController>();
     }
 
     void OnEnable()
     {
+        ResetEnemy();
+
         waypointIndex = 0;
-
-        hasReachedEnd = false;
-
-        isInCombat = false;
+        state = EnemyState.Moving;
 
         velocity = Vector3.zero;
-
         lastPosition = transform.position;
-    }
 
+        if (anim != null)
+        {
+            anim.SetMoving(false);
+            anim.SetSpeed(0f);
+        }
+    }
     void Update()
     {
-        Move();
+        if (state == EnemyState.Dead)
+            return;
+        if (state == EnemyState.Combat)
+        {
+            anim.PlayAttack();
+            return;
+        }
+
+        HandleMovement();
+        UpdateAnimation();
+
         velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
     }
-
-    void Move()
+    void ReachEnd()
     {
+        Debug.Log("INIMIGO CHEGOU AO FINAL");
 
-        if (hasReachedEnd || isInCombat)
+        if (WaveManager.instance != null)
+            WaveManager.instance.RegisterEnemyDeath();
+
+        if (BaseHealth.instance != null)
+            BaseHealth.instance.TakeDamage(1);
+
+        EnemyHealth eh = GetComponent<EnemyHealth>();
+
+        if (eh == null)
+        {
+            Debug.LogError("EnemyHealth NULL");
+            gameObject.SetActive(false);
+            return;
+        }
+
+        GameObject prefab = eh.GetPrefab();
+
+        if (prefab == null)
+        {
+            Debug.LogError("PrefabReference NULL");
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (ObjectPool.instance == null)
+        {
+            Debug.LogError("ObjectPool NULL");
+            gameObject.SetActive(false);
+            return;
+        }
+
+        ObjectPool.instance.ReturnObject(gameObject, prefab);
+    }
+    void HandleMovement()
+    {
+        if (state != EnemyState.Moving)
             return;
 
         if (stats.IsStunned())
+            return;
+
+        if (EnemyPath.instance == null)
             return;
 
         if (waypointIndex >= EnemyPath.instance.WaypointCount())
@@ -60,63 +116,51 @@ public class EnemyMovement : MonoBehaviour
         Transform target = EnemyPath.instance.GetWaypoint(waypointIndex);
 
         Vector3 dir = target.position - transform.position;
+        float moveSpeed = stats.moveSpeed * stats.GetSlowMultiplier();
 
-        float speed = stats.moveSpeed * stats.GetSlowMultiplier();
+        transform.position += dir.normalized * moveSpeed * Time.deltaTime;
 
-        if (dir.sqrMagnitude > 0.001f)
+        if (dir.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRotation =
-                Quaternion.LookRotation(dir.normalized)
-                * Quaternion.Euler(rotationOffset);
-
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
+                Quaternion.LookRotation(dir),
+                10f * Time.deltaTime
             );
         }
 
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-
         if (Vector3.Distance(transform.position, target.position) < 0.2f)
-        {
             waypointIndex++;
-        }
     }
 
-    void ReachEnd()
+    void UpdateAnimation()
     {
-        WaveManager.instance.RegisterEnemyDeath();
+        if (anim == null) return;
 
-        hasReachedEnd = true;
+        bool moving =
+            state == EnemyState.Moving &&
+            !stats.IsStunned();
 
-        if (BaseHealth.instance != null)
-            BaseHealth.instance.TakeDamage(1);
-
-        EnemyHealth eh = GetComponent<EnemyHealth>();
-
-        if (eh != null)
-        {
-            GameObject prefab = eh.GetPrefab();
-
-            if (prefab != null && ObjectPool.instance != null)
-            {
-                ObjectPool.instance.ReturnObject(gameObject, prefab);
-            }
-        }
+        anim.SetMoving(moving);
+        anim.SetSpeed(velocity.magnitude);
     }
 
-    public float GetProgress()
-    {
-        return waypointIndex;
-    }
     public Vector3 GetVelocity()
     {
         return velocity;
     }
-
-    public void SetCombat(bool value)
+    public void SetCombat(bool value, Transform target = null)
     {
-        isInCombat = value;
+        state = value ? EnemyState.Combat : EnemyState.Moving;
+        combatTarget = target;
+
+        if (!value)
+            combatTarget = null;
+    }
+    public void ResetEnemy()
+    {
+        state = EnemyState.Moving;
+        waypointIndex = 0;
+        combatTarget = null;
     }
 }

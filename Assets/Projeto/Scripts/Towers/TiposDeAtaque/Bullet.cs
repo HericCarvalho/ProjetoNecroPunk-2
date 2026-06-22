@@ -47,7 +47,6 @@ public class Bullet : MonoBehaviour
         EnemyMovement em = target.GetComponent<EnemyMovement>();
         Vector3 predictedPos = target.position;
 
-        // Cálculo opcional de previsão de movimento para o disparo inicial
         if (em != null)
         {
             Vector3 enemyVelocity = em.GetVelocity();
@@ -58,7 +57,6 @@ public class Bullet : MonoBehaviour
 
         targetPosition = predictedPos;
 
-        // Rotação inicial pura em direção ao ponto previsto
         Vector3 direction = (predictedPos - transform.position).normalized;
         if (direction != Vector3.zero)
         {

@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fcd5a253ffe27342b16d391f76452a5, type: 3}
-  m_Name: TorreCanhao
+  m_Name: "(Evolu\xE7\xE3o)TorreMorteiro"
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerName: "TorreCanh\xE3o"
-  prefab: {fileID: 8792114619394608379, guid: 28f7dad003557a0429e38a7666eab131, type: 3}
-  baseRange: 17
-  baseFireRate: 0.6
-  rangePerLevel: 0.07
-  fireRatePerLevel: 0.03
-  baseXPToLevel: 40
+  towerName: Torre Morteiro
+  prefab: {fileID: 4019399176914828616, guid: 6b8c89b6996c12d43ad301aed18e9c37, type: 3}
+  baseRange: 10
+  baseFireRate: 1
+  rangePerLevel: 0.5
+  fireRatePerLevel: 0.1
+  baseXPToLevel: 10
   baseUpgradeCost: 5
-  costMultiplier: 3
-  costMoney: 100
+  costMultiplier: 1.5
+  costMoney: 50
   costRestos: 0
-  upgradeCostMoney: 200
-  upgradeCostRestos: 40
+  upgradeCostMoney: 0
+  upgradeCostRestos: 0
   sellValue: 0
-  nextUpgrade: {fileID: 11400000, guid: 7382eca1cad0d0e46aea30ce3d4f8467, type: 2}
+  nextUpgrade: {fileID: 0}
   transmuteOptionA: {fileID: 0}
   transmuteOptionB: {fileID: 0}
-  icon: {fileID: 21300000, guid: 9f16ab8118b1dc04d925d570085324a4, type: 3}
+  icon: {fileID: 0}

@@ -2613,6 +2613,14 @@ PrefabInstance:
       propertyPath: restos
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6268895908952235347, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: waves.Array.data[0].groups.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
+    - target: {fileID: 6268895908952235347, guid: 527f6cad6ffd33943baa6260915bc4d2, type: 3}
+      propertyPath: waves.Array.data[1].groups.Array.data[1].enemyPrefab
+      value: 
+      objectReference: {fileID: 325639068677735310, guid: eab625cc608da5e4faa1d703d94e348b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9024,6 +9032,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2092393385640137284, guid: 15378f842f9f4fe4c84899c5bfbea768, type: 3}
   m_PrefabInstance: {fileID: 1439915291}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1339668970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+  m_PrefabInstance: {fileID: 1575279718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cabe92252e3e94e82834ca1dc6b671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviveButtonUI
 --- !u!1001 &1353520339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10947,10 +10966,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1339668970}
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ReviveButtonUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 99540523904583813, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 6238498753214489421, guid: 3ef23703861522f49a572571ab15b3c7, type: 3}
+      objectReference: {fileID: 6238498753214489421, guid: a80f8ee2f220f324da9a14675e261811, type: 3}
     - target: {fileID: 499751999449612545, guid: 300b06723ed23bd46aaef3356997942f, type: 3}
       propertyPath: enemyID
       value: Armadurado
