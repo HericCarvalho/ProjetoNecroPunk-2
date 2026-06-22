@@ -27,10 +27,10 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: Event NewEvent has a time (1.306175) outside the clip's
-      valid range (0.000000..1.300000). It will never be firedEvent AnimationEvent_DeathFinished
-      has a time (0.950000) outside the clip's valid range (0.000000..0.933333).
-      It will never be fired
+    animationImportWarnings: Event AnimationEvent_AttackEnd has a time (1.306175)
+      outside the clip's valid range (0.000000..1.300000). It will never be firedEvent
+      AnimationEvent_DeathFinished has a time (0.950000) outside the clip's valid
+      range (0.000000..0.933333). It will never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -55,7 +55,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -98,7 +98,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

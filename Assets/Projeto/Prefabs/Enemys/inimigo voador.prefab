@@ -14922,6 +14922,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b5033922aa9b948cc963f613b6962e47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1419269072879836900}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b5033922aa9b948cc963f613b6962e47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4501850110777961762}
   m_SourcePrefab: {fileID: 100100000, guid: b5033922aa9b948cc963f613b6962e47, type: 3}
 --- !u!1 &5802578908337076125 stripped
 GameObject:
@@ -14973,7 +14976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad17ca7be125ce34f8e2f9f9308d94a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 9
+  state: 0
 --- !u!114 &4754060963190472786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15058,6 +15061,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4501850110777961762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802578908337076125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e090aa24d98ecf4f86ec8305a876978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimatorController
+  animator: {fileID: 1419269072879836900}
+  moveBool: IsMoving
+  attackTrigger: Attack
+  speedFloat: Speed
 --- !u!4 &6615003258956721447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5033922aa9b948cc963f613b6962e47, type: 3}
